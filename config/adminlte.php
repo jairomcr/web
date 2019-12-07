@@ -375,16 +375,15 @@ return [
             'route' => 'admin.posts.index',
             'icon' => 'fas fa-fw fa-clipboard',
         ],
-        ['header' => 'OPCIONES DE PRODUCTO'],
         [
-            'text' => 'Lista de productos',
+            'text' => 'Productos',
             'route' => 'admin.products.index',
             'icon' => 'fas fa-fw fa-clipboard',
         ],
         [
-            'text' => 'Crear nuevo producto',
-            'route' => 'admin.products.create',
-            'icon' => 'fas fa-fw fa-file',
+            'text' => 'Tags',
+            'route' => 'admin.tags.index',
+            'icon' => 'fas fa-fw fa-clipboard',
         ],
         [
             'text' => 'Configuración',
