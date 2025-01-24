@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         //Storage::deleteDirectory('posts');
 
         //This is to create a directory, where the images are saved 
-        Storage::makeDirectory('posts');
+        //Storage::makeDirectory('posts');
 
 
         //Running the seeders
