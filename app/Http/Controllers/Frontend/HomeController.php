@@ -10,12 +10,13 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $posts = Post::where('status', 2)->latest('id')->paginate(6);
+        $posts = Post::with(['image', 'tags', 'user'])->where('status', 2)->latest('id')->paginate(6);
 
         $data = [
-            'pageTitle' => 'Web Serveces'
+            'pageTitle' => 'Web Serveces',
+            'posts' => $posts
         ];
 
-        return view('front-end.index', $data, compact('posts'));
+        return view('front-end.index', $data);
     }
 }

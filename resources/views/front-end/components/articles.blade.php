@@ -5,11 +5,10 @@
         </div>
         <div class="owl-carousel blog-carousel wow fadeInUp" data-wow-delay="0.2s">
             @foreach ($posts as $post)
-            {{Storage::url($post->image->url)}}
             <div class="blog-item p-4">
                 <div class="blog-img mb-4">
-                    @if ($post->image)
-                    <img src="{{Storage::url($post->image->url)}}" class="img-fluid w-100 rounded" alt="">
+                    @if (isset($post->image))
+                    <img src="{{ Storage::url($post->image->url) }}" class="img-fluid w-100 rounded" alt="">
                     @else
                     <img src="{{ asset('assets/img/service-1.jpg') }}" class="img-fluid w-100 rounded" alt="">
                     @endif
@@ -20,18 +19,16 @@
                     </div>
                 </div>
                 <a href="#" class="h4 d-inline-block mb-3">{{ $post->name }}</a>
-                <p class="mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore aut aliquam
-                    suscipit error corporis accusamus labore....
+                <p class="mb-4">{{ $post->extract }}
                 </p>
                 <div class="d-flex align-items-center">
                     <img src="{{ asset('assets/img/testimonial-1.jpg') }}" class="img-fluid rounded-circle"
                         style="width: 60px; height: 60px;" alt="">
                     <div class="ms-3">
-                        <h5>Admin</h5>
+                        <h5>{{ $post->user->name ?? 'Usuario desconocido' }}</h5>
                         <p class="mb-0">October 9, 2025</p>
                     </div>
                 </div>
-
             </div>
             @endforeach
         </div>
