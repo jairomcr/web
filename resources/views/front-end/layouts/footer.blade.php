@@ -1,70 +1,72 @@
-<div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
-    <div class="container py-5 border-start-0 border-end-0"
-        style="border: 1px solid; border-color: rgb(255, 255, 255, 0.08);">
-        <div class="row g-5">
-            <div class="col-md-6 col-lg-6 col-xl-4">
-                <div class="footer-item">
-                    <a href="index.html" class="p-0">
-                        <h4 class="text-white"><i class="fas fa-search-dollar me-3"></i>Stocker</h4>
-                        <!-- <img src="img/logo.png" alt="Logo"> -->
-                    </a>
-                    <p class="mb-4">Dolor amet sit justo amet elitr clita ipsum elitr est.Lorem ipsum dolor sit
-                        amet, consectetur adipiscing...</p>
+<footer id="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 footer-contact">
+                    <h3>Flexor</h3>
+                    <p>
+                        A108 Adam Street <br>
+                        New York, NY 535022<br>
+                        United States <br><br>
+                        <strong>Phone:</strong> +1 5589 55488 55<br>
+                        <strong>Email:</strong> info@example.com<br>
+                    </p>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-2">
-                <div class="footer-item">
-                    <h4 class="text-white mb-4">Quick Links</h4>
-                    <a href="#"><i class="fas fa-angle-right me-2"></i> About Us</a>
-                    <a href="#"><i class="fas fa-angle-right me-2"></i> Feature</a>
-                    <a href="#"><i class="fas fa-angle-right me-2"></i> Attractions</a>
-                    <a href="#"><i class="fas fa-angle-right me-2"></i> Tickets</a>
-                    <a href="#"><i class="fas fa-angle-right me-2"></i> Blog</a>
-                    <a href="#"><i class="fas fa-angle-right me-2"></i> Contact us</a>
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                    </ul>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="footer-item">
-                    <h4 class="text-white mb-4">Support</h4>
-                    <a href="#"><i class="fas fa-angle-right me-2"></i> Privacy Policy</a>
-                    <a href="#"><i class="fas fa-angle-right me-2"></i> Terms & Conditions</a>
-                    <a href="#"><i class="fas fa-angle-right me-2"></i> Disclaimer</a>
-                    <a href="#"><i class="fas fa-angle-right me-2"></i> Support</a>
-                    <a href="#"><i class="fas fa-angle-right me-2"></i> FAQ</a>
-                    <a href="#"><i class="fas fa-angle-right me-2"></i> Help</a>
+
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Our Services</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                    </ul>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="footer-item">
-                    <h4 class="text-white mb-4">Contact Info</h4>
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-map-marker-alt text-primary me-3"></i>
-                        <p class="text-white mb-0">123 Street New York.USA</p>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-envelope text-primary me-3"></i>
-                        <p class="text-white mb-0">info@example.com</p>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <i class="fa fa-phone-alt text-primary me-3"></i>
-                        <p class="text-white mb-0">(+012) 3456 7890</p>
-                    </div>
-                    <div class="d-flex align-items-center mb-4">
-                        <i class="fab fa-firefox-browser text-primary me-3"></i>
-                        <p class="text-white mb-0">Yoursite@ex.com</p>
-                    </div>
-                    <div class="d-flex">
-                        <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="#"><i
-                                class="fab fa-facebook-f text-white"></i></a>
-                        <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="#"><i
-                                class="fab fa-twitter text-white"></i></a>
-                        <a class="btn btn-primary btn-sm-square rounded-circle me-3" href="#"><i
-                                class="fab fa-instagram text-white"></i></a>
-                        <a class="btn btn-primary btn-sm-square rounded-circle me-0" href="#"><i
-                                class="fab fa-linkedin-in text-white"></i></a>
-                    </div>
+
+                <div class="col-lg-4 col-md-6 footer-newsletter">
+                    <h4>Join Our Newsletter</h4>
+                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                    <form action="" method="post">
+                        <input type="email" name="email"><input type="submit" value="Subscribe">
+                    </form>
                 </div>
+
             </div>
         </div>
     </div>
-</div>
+
+    <div class="container d-lg-flex py-4">
+
+        <div class="me-lg-auto text-center text-lg-start">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Flexor</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexor-free-multipurpose-bootstrap-template/ -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+        <div class="social-links text-center text-lg-right pt-3 pt-lg-0">
+            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div>
+    </div>
+</footer>

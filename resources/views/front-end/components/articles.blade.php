@@ -18,7 +18,7 @@
                         @endforeach
                     </div>
                 </div>
-                <a href="#" class="h4 d-inline-block mb-3">{{ $post->name }}</a>
+                <a href="{{ route('posts.show', $post) }}" class="h4 d-inline-block mb-3">{{ $post->name }}</a>
                 <p class="mb-4">{{ $post->extract }}
                 </p>
                 <div class="d-flex align-items-center">
