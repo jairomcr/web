@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    //protected $paginationTheme = "bootstrap";
+
     public function index()
     {
         $categories = Category::all();

@@ -53,6 +53,7 @@
             </div>
 
             <div class="cta d-none d-md-flex align-items-center">
+                <a href="#about" class="scrollto me-3">Get Started</a>
                 <a href="#about" class="scrollto">Get Started</a>
             </div>
         </div>

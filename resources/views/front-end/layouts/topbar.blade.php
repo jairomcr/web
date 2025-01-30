@@ -5,43 +5,41 @@
                     href="mailto:contact@example.com">contact@example.com</a></i>
             <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
         </div>
-        <div class="cta d-none d-md-flex align-items-center">
-            <div class="contact-info d-flex align-items-center">
-                {{-- <a href="#about" class="scrollto">Get Started</a> --}}
-                @auth
-                <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{Auth::user()->name}}
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </div>
-                {{-- <a data-bs-toggle="dropdown" href="#"><span>{{Auth::user()->name}}</span> <i
-                        class="bi bi-chevron-down" style="color: white;"></i></a>
-                <div class="dropdown-menu">
-                    <a href="{{ route('profile.show') }}" class="dropdown-item"><i class="fas fa-user-alt me-2"></i>
-                        My Profile</a>
-                    <a href="#" class="dropdown-item"><i class="fas fa-comment-alt me-2"></i> Inbox</a>
-                    <a href="#" class="dropdown-item"><i class="fas fa-bell me-2"></i> Notifications</a>
-                    <a href="#" class="dropdown-item"><i class="fas fa-cog me-2"></i> Account Settings</a>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log
-                            Out</button>
-                    </form>
-                </div> --}}
-                @else
-                <a href="{{ route('register') }}"><small class="me-3 text-dark"><i
-                            class="bi bi-user text-primary me-2"></i>Register</small></a>
-                <a href="{{ route('login') }}"><small class="me-3 text-dark"><i
-                            class="bi bi-sign-in-alt text-primary me-2"></i>Login</small></a>
-                @endauth
+        <div class="cta d-flex align-items-center">
+            {{-- <a href="#about" class="scrollto">Get Started</a> --}}
+
+            @auth
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    {{Auth::user()->name}}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
             </div>
+            {{-- <a data-bs-toggle="dropdown" href="#"><span>{{Auth::user()->name}}</span> <i class="bi bi-chevron-down"
+                    style="color: white;"></i></a>
+            <div class="dropdown-menu">
+                <a href="{{ route('profile.show') }}" class="dropdown-item"><i class="fas fa-user-alt me-2"></i>
+                    My Profile</a>
+                <a href="#" class="dropdown-item"><i class="fas fa-comment-alt me-2"></i> Inbox</a>
+                <a href="#" class="dropdown-item"><i class="fas fa-bell me-2"></i> Notifications</a>
+                <a href="#" class="dropdown-item"><i class="fas fa-cog me-2"></i> Account Settings</a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log
+                        Out</button>
+                </form>
+            </div> --}}
+            @else
+            <a href="{{ route('register') }}" class="scrollto me-3">Register</a>
+            <a href="{{ route('login') }}" class="scrollto">Login</a>
+            @endauth
         </div>
+
     </div>
 </section>
 {{-- <div class="container-fluid topbar bg-light px-5 d-none d-lg-block">

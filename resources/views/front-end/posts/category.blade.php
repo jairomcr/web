@@ -22,9 +22,7 @@
                 <!-- End blog entry -->
                 @endforeach
                 <div class="blog-pagination">
-                    <ul class="justify-content-center">
-                        {{$posts->links()}}
-                    </ul>
+                    {{$posts->links()}}
                 </div>
             </div><!-- End blog entries list -->
         </div>
