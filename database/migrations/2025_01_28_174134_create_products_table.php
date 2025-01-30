@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->boolean('status');
+            $table->enum('status', [1, 2])->default(1);
             $table->string('image_id');
             $table->bigInteger('user_id');
             $table->timestamps();
