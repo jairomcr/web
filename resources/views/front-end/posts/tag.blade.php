@@ -7,7 +7,7 @@
         <ol>
             <li><a href="/">Home</a></li>
         </ol>
-        <h2>{{$category->name}}</h2>
+        <h2>{{$tag->name}}</h2>
     </div>
 </section><!-- End Breadcrumbs -->
 

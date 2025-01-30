@@ -8,7 +8,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class HomeController extends Controller
 {
     public function index()
     {
@@ -54,6 +54,16 @@ class PostController extends Controller
     }
     public function tag(Tag $tag)
     {
-        return $tag;
+        $categories = Category::all(); //Brings all categories
+        $posts = $tag->posts()->where('status', 2)->latest('id')->paginate(3);
+
+        $data = [
+            'pageTitle' => 'Web Serveces-' . $tag->name,
+            'posts' => $posts,
+            'categories' => $categories,
+            'tag' => $tag
+        ];
+
+        return view('front-end.posts.tag', $data);
     }
 }
