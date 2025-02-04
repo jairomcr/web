@@ -30,6 +30,9 @@
     @stack('stylesheets')
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+
+
+
     <!-- =======================================================
   * Template Name: Flexor
   * Updated: Mar 10 2023 with Bootstrap v5.2.3
@@ -181,7 +184,8 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
+                        data-aos-delay="200">
                         <div class="member">
                             <div class="member-img">
                                 <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
@@ -199,7 +203,8 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
+                        data-aos-delay="300">
                         <div class="member">
                             <div class="member-img">
                                 <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
@@ -277,8 +282,7 @@
                                     placeholder="Subject" required>
                             </div>
                             <div class="form-group mt-3">
-                                <textarea class="form-control" name="message" rows="5" placeholder="Message"
-                                    required></textarea>
+                                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
                             </div>
                             <div class="my-3">
                                 <div class="loading">Loading</div>
@@ -303,6 +307,12 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
+
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+    @stack('scripts')
+
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -310,11 +320,6 @@
     <script src="{{ asset('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
-
-    <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
-    @stack('scripts')
-
 </body>
 
 </html>

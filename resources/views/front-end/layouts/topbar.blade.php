@@ -8,26 +8,13 @@
         <div class="cta d-flex align-items-center">
 
             @auth
-            <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+
+                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                    aria-expanded="false">
                     Usuario
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Perfil</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
-                </ul>
-            </div>
-            {{-- <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton2"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ auth()->user()->name }}
-                </button>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                </a>
+                <ul class="dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item text-dark bg-white" href="#">Perfil</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
@@ -38,10 +25,9 @@
                         </form>
                     </li>
                 </ul>
-            </div> --}}
             @else
-            <a href="{{ route('register') }}" class="scrollto me-3">Register</a>
-            <a href="{{ route('login') }}" class="scrollto">Login</a>
+                <a href="{{ route('register') }}" class="scrollto me-3">Register</a>
+                <a href="{{ route('login') }}" class="scrollto">Login</a>
             @endauth
         </div>
 

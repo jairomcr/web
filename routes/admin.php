@@ -3,6 +3,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('admin',function () {
-    return 'Hola administrador';
+Route::get('/',function () {
+    return view('admin.index');
 });
