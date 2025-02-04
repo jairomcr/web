@@ -12,6 +12,8 @@ class Product extends Model
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
 
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
     // one-to-one relationship
     public function user_id(): BelongsTo
     {
