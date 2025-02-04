@@ -66,3 +66,5 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 Esto es para ejecutar la paginacion y personalizarla a mi forma, nada mas que ejectutas este comando (php artisan vendor:publish --tag=laravel-pagination)
+
+Here I leave you the url (https://jeroennoten.github.io/Laravel-AdminLTE/sections/overview/usage.html)
