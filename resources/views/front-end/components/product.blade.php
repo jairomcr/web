@@ -12,21 +12,15 @@
             <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a
                     href="blog-single.html">{{ $product->user->name }}</a>
             </li>
-            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a
-                    href="blog-single.html"><time datetime="">{{ $product->created_at }}</time></a></li>
+            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time
+                        datetime="">{{ $product->created_at }}</time></a></li>
         </ul>
     </div>
 
     <div class="entry-content">
         <p> {{ $product->info }} </p>
         <div class="read-more">
-            <a href="{{ 
-                route('products.detail', [ 'id' => $product->id ]) }}">Ver Detalles.</a>
-    <div class="entry-content">
-        <p> {{ $product->info }} </p>
-        <div class="read-more">
-            <a href="{{ 
-                route('products.detail', [ 'id' => $product->id ]) }}">Ver Detalles.</a>
+            <a href="{{ route('products.detail', ['id' => $product->id]) }}">Ver Detalles.</a>
         </div>
     </div>
 
