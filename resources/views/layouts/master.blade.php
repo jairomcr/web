@@ -52,10 +52,6 @@
     @include('front-end.layouts.header')
     <!-- End Header -->
 
-    <!-- ======= Footer ======= -->
-    @include('front-end.layouts.footer')
-    <!-- End Footer -->
-
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
@@ -63,6 +59,9 @@
     <!-- ACTUAL CONTENT GOES HERE -->
     @yield('content')
 
+	<!-- ======= Footer ======= -->
+    @include('front-end.layouts.footer')
+    <!-- End Footer -->
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
