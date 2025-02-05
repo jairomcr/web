@@ -21,11 +21,11 @@ return new class extends Migration
 
             $table->enum('status', [1, 2])->default(1);
 
-            $table->smallInteger('price')->default(0.0);
+            $table->float('price')->default(0.0);
 
             $table->tinyText('info')->nullable();
 
-            $table->string('desc')->nullable();
+            $table->longText('desc')->nullable();
             
 
             $table->timestamps();

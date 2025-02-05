@@ -11,8 +11,6 @@ class Image extends Model
 
     protected $fillable = ['url'];
 
-    public $attributes = ['url', 'imageable_id', 'imageable_type'];
-
     //Relation polymorphic
     public function imageable()
     {
