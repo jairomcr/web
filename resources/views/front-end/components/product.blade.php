@@ -22,7 +22,14 @@
         <div class="read-more">
             <a href="{{ 
                 route('products.detail', [ 'id' => $product->id ]) }}">Ver Detalles.</a>
+    <div class="entry-content">
+        <p> {{ $product->info }} </p>
+        <div class="read-more">
+            <a href="{{ 
+                route('products.detail', [ 'id' => $product->id ]) }}">Ver Detalles.</a>
         </div>
     </div>
+
+</article>
 
 </article>
