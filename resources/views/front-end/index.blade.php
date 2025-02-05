@@ -1,57 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.master')
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>
-        <?= $pageTitle ?? 'Page title' ?>
-    </title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
-    <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
-    <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
-    @stack('stylesheets')
-    <!-- Template Main CSS File -->
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-
-
-
-    <!-- =======================================================
-  * Template Name: Flexor
-  * Updated: Mar 10 2023 with Bootstrap v5.2.3
-  * Template URL: https://bootstrapmade.com/flexor-free-multipurpose-bootstrap-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
-
-<body>
-
-    <!-- ======= Top Bar ======= -->
-    @include('front-end.layouts.topbar')
-    <!-- ======= End Top Bar ======= -->
-
-    <!-- ======= Header ======= -->
-    @include('front-end.layouts.header')
-    <!-- End Header -->
-
+@section('content')
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
         <div class="container" data-aos="fade-in">
@@ -88,8 +37,7 @@
                     <div class="col-xl-8 col-lg-7 d-flex">
                         <div class="icon-boxes d-flex flex-column justify-content-center">
                             <div class="row">
-                                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up"
-                                    data-aos-delay="100">
+                                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                                     <div class="icon-box mt-4 mt-xl-0">
                                         <i class="bx bx-receipt"></i>
                                         <h4>Corporis voluptates sit</h4>
@@ -97,8 +45,7 @@
                                             aliquip</p>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up"
-                                    data-aos-delay="200">
+                                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
                                     <div class="icon-box mt-4 mt-xl-0">
                                         <i class="bx bx-cube-alt"></i>
                                         <h4>Ullamco laboris ladore pan</h4>
@@ -106,8 +53,7 @@
                                             deserunt</p>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up"
-                                    data-aos-delay="300">
+                                <div class="col-xl-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
                                     <div class="icon-box mt-4 mt-xl-0">
                                         <i class="bx bx-images"></i>
                                         <h4>Labore consequatur</h4>
@@ -130,10 +76,6 @@
         <!-- ======= Values Articles ======= -->
         @include('front-end.components.articles')
         <!-- End Values Section -->
-
-        <!-- ======= Portfolio Section ======= -->
-        @include('front-end.components.product')
-        <!-- End Portfolio Section -->
 
         <!-- ======= Team Section ======= -->
         <section id="team" class="team section-bg">
@@ -184,8 +126,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
-                        data-aos-delay="200">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
                         <div class="member">
                             <div class="member-img">
                                 <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
@@ -203,8 +144,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
-                        data-aos-delay="300">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
                         <div class="member">
                             <div class="member-img">
                                 <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
@@ -299,29 +239,4 @@
         </section><!-- End Contact Section -->
 
     </main><!-- End #main -->
-
-    <!-- ======= Footer ======= -->
-    @include('front-end.layouts.footer')
-    <!-- End Footer -->
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
-
-
-
-
-
-    <!-- Vendor JS Files -->
-    <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
-    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
-    <!-- Template Main JS File -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-    @stack('scripts')
-
-</body>
-
-</html>
+@endsection

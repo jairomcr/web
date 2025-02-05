@@ -20,19 +20,17 @@ class ProductSeeder extends Seeder
         $paths = $this->getImagePaths();
 
         foreach ($paths as $path) {
-            $product = Product::factory()->createOne(
-                [
-                    // Fancy (and super fake) product name
-                    'name' => "Cerveza " . fake()->unique()->streetName(),
-                    'info' => fake()->unique()->sentence(20),
-                    'desc' => fake()->realText(maxNbChars: 500),
-                    'price' => fake()->randomFloat(500),
-                    // Make at least 70% of the values in the status column to be 1 (active)
-                    // Boolean math is faster than array randomness
-                    'status' => fake()->boolean(70) ? 1 : 2,
-                    'user_id' => User::all()->random()->id,
-                ]
-            );
+            $product = Product::factory()->createOne([
+                // Fancy (and super fake) product name
+                'name' => "Cerveza " . fake()->unique()->streetName(),
+                'info' => fake()->unique()->sentence(20),
+                'desc' => fake()->realText(maxNbChars: 500),
+                'price' => fake()->randomFloat(500),
+                // Make at least 70% of the values in the status column to be 1 (active)
+                // Boolean math is faster than array randomness
+                'status' => fake()->boolean(70) ? 1 : 2,
+                'user_id' => User::all()->random()->id,
+            ]);
 
             $image = Image::factory()->createOne([
                 'url' => $path,
@@ -40,7 +38,28 @@ class ProductSeeder extends Seeder
                 'imageable_type' => Product::class
             ]);
 
-            
+
+        }
+        
+
+        for ($i = 0; $i < 10; $i++) {
+            $product = Product::factory()->createOne([
+                // Fancy (and super fake) product name
+                'name' => "Cerveza " . fake()->unique()->streetName(),
+                'info' => fake()->unique()->sentence(20),
+                'desc' => fake()->realText(maxNbChars: 500),
+                'price' => fake()->randomFloat(500),
+                // Make at least 70% of the values in the status column to be 1 (active)
+                // Boolean math is faster than array randomness
+                'status' => 2,
+                'user_id' => User::all()->random()->id,
+            ]);
+
+            $image = Image::factory()->createOne([
+                'url' => null,
+                'imageable_id' => $product->id,
+                'imageable_type' => Product::class,
+            ]);
         }
     }
 

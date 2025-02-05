@@ -11,7 +11,7 @@
             <ul>
                 <li><a class="nav-link scrollto active" href="/">Home</a></li>
                 <li><a class="nav-link scrollto" href="#about">About</a></li>
-                <li><a class="nav-link scrollto " href="#portfolio">Productos</a></li>
+                <li><a class="nav-link scrollto" href="{{ route('products.show') }}">Productos</a></li>
                 <div class="dropdown"><a href="#"><span>Articulos</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         @foreach ($categories as $category)

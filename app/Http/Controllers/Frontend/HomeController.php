@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Product;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -67,5 +68,37 @@ class HomeController extends Controller
         ];
 
         return view('front-end.posts.tag', $data);
+    }
+
+    public function product_list() {
+        
+        $categories = Category::all();
+        $posts = Post::with(['image', 'tags', 'user'])->where('status', 2)->latest('id')->paginate(4);
+
+        $data = [
+            'pageTitle' => 'Lista de Productos',
+            'categories' => $categories
+        ];
+
+        return view('front-end.components.product-list', [
+            'products' => Product::where('status', 2)->latest('id')->paginate(3),
+            ...$data
+        ]);
+    }
+
+    public function product_detail($id) {
+        
+        $categories = Category::all();
+        $posts = Post::with(['image', 'tags', 'user'])->where('status', 2)->latest('id')->paginate(4);
+
+        $data = [
+            'pageTitle' => 'Lista de Productos',
+            'categories' => $categories
+        ];
+
+        return view('front-end.components.product-detail', [
+            'product' => Product::findOrFail($id),
+            ...$data
+        ]);
     }
 }
