@@ -14,6 +14,8 @@ class Product extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    public $attributes = ['name', 'info', 'desc', 'price', 'status', 'user_id'];
+
     // one-to-one relationship
     public function user(): BelongsTo
     {

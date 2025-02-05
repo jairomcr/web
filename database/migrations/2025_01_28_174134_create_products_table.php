@@ -13,11 +13,21 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->enum('status', [1, 2])->default(1);
-            $table->string('image_id');
+
+            // Custom columns
+            $table->tinyText('name');
+
             $table->bigInteger('user_id');
+
+            $table->enum('status', [1, 2])->default(1);
+
+            $table->smallInteger('price')->default(0.0);
+
+            $table->tinyText('info')->nullable();
+
+            $table->string('desc')->nullable();
+            
+
             $table->timestamps();
         });
     }
