@@ -15,7 +15,7 @@ class Product extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     // one-to-one relationship
-    public function user_id(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
