@@ -9,25 +9,25 @@
 
             @auth
 
-                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Usuario
-                </a>
-                <ul class="dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item text-dark bg-white" href="#">Perfil</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button class="dropdown-item" type="submit">Cerrar sesión</button>
-                        </form>
-                    </li>
-                </ul>
+            <a type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                aria-expanded="false"><span>{{auth()->user()->name}}</span> <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul class="dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class=" dropdown-item text-dark bg-white" href="#">Perfil</a></li>
+                <li><a class="dropdown-item text-dark bg-white" href="{{ route('admin.home') }}">Dashboard</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="dropdown-item" type="submit">Cerrar sesión</button>
+                    </form>
+                </li>
+            </ul>
             @else
-                <a href="{{ route('register') }}" class="scrollto me-3">Register</a>
-                <a href="{{ route('login') }}" class="scrollto">Login</a>
+            <a href="{{ route('register') }}" class="scrollto me-3">Register</a>
+            <a href="{{ route('login') }}" class="scrollto">Login</a>
             @endauth
         </div>
 
