@@ -171,12 +171,12 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline card-primary',
+    'classes_auth_card' => 'bg-gradient-dark',
     'classes_auth_header' => '',
-    'classes_auth_body' => '',
-    'classes_auth_footer' => '',
-    'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-primary',
+    'classes_auth_body' => 'bg-gradient-dark',
+    'classes_auth_footer' => 'text-center',
+    'classes_auth_icon' => 'fa-fw text-light',
+    'classes_auth_btn' => 'btn-flat btn-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -336,7 +336,7 @@ return [
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
-        [
+        /* [
             'text' => 'multilevel',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
@@ -373,22 +373,17 @@ return [
                     'url' => '#',
                 ],
             ],
-        ],
-        ['header' => 'labels'],
+        ], */
+        ['header' => 'OPCIONES DE ARTICULO'],
         [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
+            'text'  => 'Lista de artículos',
+            'route' => 'admin.posts.index',
+            'icon'  => 'fas fa-fw fa-clipboard',
         ],
         [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
+            'text'  => 'Crear nuevo artículos',
+            'route' => 'admin.posts.create',
+            'icon'  => 'fas fa-fw fa-file',
         ],
     ],
 
@@ -544,5 +539,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];
