@@ -385,6 +385,17 @@ return [
             'route' => 'admin.posts.create',
             'icon'  => 'fas fa-fw fa-file',
         ],
+        ['header' => 'OPCIONES DE PRODUCTO'],
+        [
+            'text'  => 'Lista de productos',
+            'route' => 'admin.products.index',
+            'icon'  => 'fas fa-fw fa-clipboard',
+        ],
+        [
+            'text'  => 'Crear nuevo producto',
+            'route' => 'admin.products.create',
+            'icon'  => 'fas fa-fw fa-file',
+        ],
     ],
 
     /*
