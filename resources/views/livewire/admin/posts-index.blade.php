@@ -6,23 +6,25 @@
 
     <!-- Formulario de creación -->
     @if ($isCreating)
+    
     <div class="card mb-3">
         <div class="card-body">
             <form wire:submit.prevent="{{ $postId ? 'updatePost' : 'createPost' }}">
                 <div class="row">
                     <div class="col">
-                        <x-adminlte-input name="name" type="text" wire:model="name" label="Título:" placeholder="Ingrese el título del artículo..."
-                            fgroup-class="col-md-12" disable-feedback />
-                            @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                        <x-adminlte-input name="name" type="text" wire:model="name" label="Título:"
+                            placeholder="Ingrese el título del artículo..." fgroup-class="col-md-12" disable-feedback />
+                        @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
-                    
+    
                     <div class="col">
-                        <x-adminlte-input name="slug" type="text" wire:model="slug" label="Slug:" placeholder="Ingrese el slug del artículo..."
-                            fgroup-class="col-md-12"  disable-feedback disabled />
-                            @error('slug') <span class="text-danger">{{ $message }}</span> @enderror
+                        <x-adminlte-input name="slug" type="text" wire:model="slug" label="Slug:"
+                            placeholder="Ingrese el slug del artículo..." fgroup-class="col-md-12" disable-feedback
+                            disabled />
+                        @error('slug') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 </div>
-                
+    
                 <div class="form-group">
                     <label for="category_id">Categoría</label>
                     <select wire:model="category_id" class="form-control" id="category_id">
@@ -33,6 +35,7 @@
                     </select>
                     @error('category_id') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
+    
                 <!-- Campo para seleccionar tags con checkboxes -->
                 <div class="form-group">
                     <label>Tags:</label>
@@ -40,8 +43,8 @@
                         @foreach ($tags as $tag)
                         <div class="col-md-3">
                             <div class="form-check">
-                                <input type="checkbox" wire:model="selectedTags" value="{{ $tag->id }}" id="tag_{{ $tag->id }}"
-                                    class="form-check-input">
+                                <input type="checkbox" wire:model="selectedTags" value="{{ $tag->id }}"
+                                    id="tag_{{ $tag->id }}" class="form-check-input">
                                 <label for="tag_{{ $tag->id }}" class="form-check-label">
                                     {{ $tag->name }}
                                 </label>
@@ -51,25 +54,50 @@
                     </div>
                     @error('selectedTags') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
-
+    
                 <div class="form-group">
-                    <label for="content">Extracto:</label>
+                    <label for="extract">Extracto:</label>
                     <textarea wire:model="extract" class="form-control" id="extract" rows="3"></textarea>
                     @error('extract') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
-
+    
+                <!-- Campo para el cuerpo del artículo con CKEditor 5 y Alpine.js -->
                 <div class="form-group">
-                    <label for="content">Cuerpo:</label>
-                    <textarea wire:model="body" class="form-control" id="body" rows="3"></textarea>
+                    <label for="body">Cuerpo:</label>
+                    <div x-data="{ ckeditor: null }" x-init="
+                        let interval = setInterval(() => {
+                            if (typeof ClassicEditor !== 'undefined') {
+                                clearInterval(interval); // Detener el intervalo
+                                ClassicEditor
+                                    .create(document.querySelector('#editor'), {
+                                        toolbar: [
+                                            'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'undo', 'redo'
+                                        ]
+                                    })
+                                    .then(editor => {
+                                        ckeditor = editor;
+                                        editor.model.document.on('change:data', () => {
+                                            $wire.set('body', editor.getData());
+                                        });
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
+                            }
+                        }, 100);
+                    ">
+                        <textarea wire:model="body" id="editor" class="form-control" rows="3"></textarea>
+                    </div>
                     @error('body') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
-
+    
                 <button type="submit" class="btn btn-primary">Guardar</button>
                 <button type="button" wire:click="resetForm" class="btn btn-secondary">Cancelar</button>
             </form>
         </div>
     </div>
     @else
+    '{{--  --}}
     <!-- List of posts -->
     <div class="row">
         @foreach ($posts as $post)
@@ -98,6 +126,7 @@
     <!-- Pagination -->
     {{ $posts->links() }}
     @endif
+    
 </div>
 
 {{-- <div class="card">
