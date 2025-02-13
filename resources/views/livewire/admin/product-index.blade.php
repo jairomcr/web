@@ -1,43 +1,27 @@
-<main>
-    <div class="row">
-        @foreach ($products as $product)
-        <x-adminlte-card class="col-sm" title="Precio {{$product->price}}" theme="primary" icon="fas fa-lg fa-shopping-basket">
-            <h2>Nombre: {{$product->name}}</h2>
-            <div class="accordion" id="accordionExample">
-                <div class="card">
-                  <div class="card-header" id="heading{{$product->id}}-first">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse{{$product->id}}-first" aria-expanded="false" aria-controls="collapse{{$product->id}}-first">
-                        Informacion Breve Del Producto
-                      </button>
-                    </h5>
-                  </div>
-              
-                  <div id="collapse{{$product->id}}-first" class="collapse" aria-labelledby="heading{{$product->id}}-first" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ $product->info }}
-                    </div>
-                  </div>
-                </div>
-                <!-- SEGUNDA SECCION -->
-                <div class="card">
-                  <div class="card-header" id="heading{{$product->id}}-second">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse{{$product->id}}-second" aria-expanded="false" aria-controls="collapse{{$product->id}}-second">
-                        Descipcion Del Producto
-                      </button>
-                    </h5>
-                  </div>
-                  <div id="collapse{{$product->id}}-second" class="collapse" aria-labelledby="heading{{$product->id}}-second" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ $product->desc }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-        </x-adminlte-card>
-        @endforeach
-        
+<div>
+    <div class="row container-fluid">
+        <button class="btn btn-primary col-2" data-toggle="modal" data-target="#createModal">Nuevo</button>
+        <input id="search" name="search" value="" class="form-control col-sm" type="text"
+            placeholder="Buscar producto" wire:model.live="currentSearchProduct">
     </div>
-    {{$products->links()}}
-</main>
+
+    <livewire:admin.product-create />
+    <livewire:admin.product-edit />
+
+    <hr>
+    @if (empty($currentSearchProduct))
+        <div class="row">
+            @foreach ($products as $product)
+                <livewire:admin.product-index-item :product="$product" :key="$product->id">
+            @endforeach
+        </div>
+        {{ $products->links() }}
+    @else
+        <div class="row">
+            @foreach ($this->filteredProducts as $product)
+                <livewire:admin.product-index-item :product="$product" :key="$product->id">
+            @endforeach
+        </div>
+        {{ $this->filteredProducts->links() }}
+    @endif
+</div>

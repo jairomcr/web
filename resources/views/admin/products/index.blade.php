@@ -3,11 +3,11 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-<h1>Mostrar detalle de las categorias</h1>
+<h1>Productos</h1>
 @stop
 
 @section('content')
-@livewire('admin.product-index')
+<livewire:admin.product-index />
 @stop
 
 @section('css')
