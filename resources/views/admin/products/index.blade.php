@@ -17,7 +17,5 @@
 @stop
 
 @section('js')
-<script>
-    console.log("Hi, I'm using the Laravel-AdminLTE package!"); 
-</script>
+<script src="{{ asset('assets/js/bs-custom-file-input.min.js') }}"></script>
 @stop

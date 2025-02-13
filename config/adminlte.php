@@ -376,25 +376,25 @@ return [
         ], */
         ['header' => 'OPCIONES DE ARTICULO'],
         [
-            'text'  => 'Lista de artículos',
+            'text' => 'Lista de artículos',
             'route' => 'admin.posts.index',
-            'icon'  => 'fas fa-fw fa-clipboard',
+            'icon' => 'fas fa-fw fa-clipboard',
         ],
         [
-            'text'  => 'Crear nuevo artículos',
+            'text' => 'Crear nuevo artículos',
             'route' => 'admin.posts.create',
-            'icon'  => 'fas fa-fw fa-file',
+            'icon' => 'fas fa-fw fa-file',
         ],
         ['header' => 'OPCIONES DE PRODUCTO'],
         [
-            'text'  => 'Lista de productos',
+            'text' => 'Lista de productos',
             'route' => 'admin.products.index',
-            'icon'  => 'fas fa-fw fa-clipboard',
+            'icon' => 'fas fa-fw fa-clipboard',
         ],
         [
-            'text'  => 'Crear nuevo producto',
+            'text' => 'Crear nuevo producto',
             'route' => 'admin.products.create',
-            'icon'  => 'fas fa-fw fa-file',
+            'icon' => 'fas fa-fw fa-file',
         ],
     ],
 
@@ -500,6 +500,16 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
+        'BsCustomFileInput' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/bs-custom-file-input/bs-custom-file-input.min.js',
                 ],
             ],
         ],

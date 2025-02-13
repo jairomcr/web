@@ -1,4 +1,6 @@
 <div>
+    @section('plugins.BsCustomFileInput', true)
+    
     <x-adminlte-input name="name" label="Nombre" label-class="text-lightblue">
         <x-slot name="prependSlot">
             <div class="input-group-text">
@@ -7,6 +9,13 @@
         </x-slot>
     </x-adminlte-input>
 
+    <x-adminlte-input-file name="img_file" placeholder="Choose an image...">
+        <x-slot name="prependSlot">
+            <div class="input-group-text text-lightblue">
+                <i class="fas fa-upload"></i>
+            </div>
+        </x-slot>
+    </x-adminlte-input-file>
 
     <x-adminlte-input name="price" label="Precio" label-class="text-lightblue">
         <x-slot name="prependSlot">
@@ -16,8 +25,8 @@
         </x-slot>
     </x-adminlte-input>
 
-    <x-adminlte-textarea name="info" label="Información" rows=5 label-class="text-lightblue"
-        igroup-size="sm" placeholder="Insertar información...">
+    <x-adminlte-textarea name="info" label="Información" rows="5" label-class="text-lightblue" igroup-size="sm"
+        placeholder="Insertar información...">
         <x-slot name="prependSlot">
             <div class="input-group-text">
                 <i class="fas fa-lg fa-file-alt text-lightblue"></i>
@@ -25,12 +34,14 @@
         </x-slot>
     </x-adminlte-textarea>
 
-    <x-adminlte-textarea name="desc" label="Descripción" rows=5 label-class="text-lightblue"
-        igroup-size="sm" placeholder="Insertar descripción...">
+    <x-adminlte-textarea name="desc" label="Descripción" rows="5" label-class="text-lightblue" igroup-size="sm"
+        placeholder="Insertar descripción...">
         <x-slot name="prependSlot">
             <div class="input-group-text">
                 <i class="fas fa-lg fa-file-alt text-lightblue"></i>
             </div>
         </x-slot>
     </x-adminlte-textarea>
+
+    
 </div>
