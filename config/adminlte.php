@@ -374,16 +374,11 @@ return [
                 ],
             ],
         ], */
-        ['header' => 'OPCIONES DE ARTICULO'],
+        /* ['header' => 'OPCIONES DE ARTICULO'], */
         [
-            'text' => 'Lista de artículos',
+            'text' => 'Artículos',
             'route' => 'admin.posts.index',
             'icon' => 'fas fa-fw fa-clipboard',
-        ],
-        [
-            'text' => 'Crear nuevo artículos',
-            'route' => 'admin.posts.create',
-            'icon' => 'fas fa-fw fa-file',
         ],
         ['header' => 'OPCIONES DE PRODUCTO'],
         [

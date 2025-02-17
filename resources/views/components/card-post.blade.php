@@ -20,7 +20,7 @@
 
     <div class="entry-content">
         <p>
-            {{$post->body}}
+            {!! $post->body !!}
         </p>
     </div>
 </article>
