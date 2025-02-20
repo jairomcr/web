@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Admin;
 
-use App\Http\Requests\CreatePostRequest;
+
+use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -20,10 +22,9 @@ class PostsIndex extends Component
 
     public $search = "";
     public $categories;
-    public $tags;  //Listados de todos los tags disponibles
-    public $selectedTags = []; // Tags seleccionados en el formulario
-
-    // Propiedades para el formulario de creación y edición
+    public $tags;  
+    public $selectedTags = []; 
+  
     public $name = "";
     public $slug = "";
     public $extract = "";
@@ -34,6 +35,7 @@ class PostsIndex extends Component
     public $status =  1;
     public $isCreating = false;
     public $postId = null; // Para almacenar el ID del post que se está editando
+    public $post;
 
     public function mount()
     {
@@ -61,48 +63,72 @@ class PostsIndex extends Component
         $this->resetForm(); // Limpiar el formulario al alternar
     }
 
-    // Método para crear un nuevo post
     public function createPost()
     {
-        //Obtener las reglas  de validacion
-        $rules = CreatePostRequest::getRules($this->status);
+        $this->handlePostOperation();
+        session()->flash('message', 'Post creado exitosamente.');
+    }
 
-        //Validar  los datos del formulario
+    public function updatePost()
+    {
+        $this->handlePostOperation();
+        session()->flash('message', 'Post actualizado exitosamente.');
+    }
+
+    private function handlePostOperation()
+    {
+        $postId = $this->post ? $this->post->id : null;
+        
+        $rules = PostRequest::getRules($this->status);
         $this->validate($rules);
 
+        $userId = auth()->id(); // Cache the authenticated user ID
+        $imagePath = $this->image ? $this->image->store('posts', 'public') : null;
 
-        // Guardar la imagen en el sistema de archivos
-        $imagePath = $this->image ? $this->image->store('posts', 'public') : null; // Guardar en storage/app/public/posts
+        // Use a transaction to ensure data integrity
+        DB::transaction(function () use ($postId, $userId, $imagePath) {
+            if ($postId) {
+                // Update existing post
+                $post = Post::findOrFail($postId);
+                if ($imagePath) {
+                    if ($post->image) {
+                        Storage::delete('public/' . $post->image->url);
+                        $post->image->delete();
+                    }
+                    $post->image()->create(['url' => $imagePath]);
+                }
+                $post->update($this->pull([
+                    'name',
+                    'slug',
+                    'status',
+                    'extract',
+                    'body',
+                    'category_id',
+                ]));
+            } else {
+                // Create new post
+                $post = Post::create([
+                    ...$this->pull([
+                        'name',
+                        'slug',
+                        'status',
+                        'extract',
+                        'body',
+                        'category_id',
+                    ]),
+                    'user_id' => $userId,
+                ]);
+                if ($imagePath) {
+                    $post->image()->create(['url' => $imagePath]);
+                }
+            }
 
-        // Crear el post
-        $post = Post::create([
-            ...$this->pull([
-                'name',
-                'slug',
-                'status',
-                'extract',
-                'body',
-                'category_id',
-                'image'
-            ]),
-            'user_id' => auth()->user()->id,
-        ]);
+            // Sync tags
+            $post->tags()->sync($this->selectedTags);
+        });
 
-
-        // Guardar la imagen en la base de datos
-        if ($imagePath) {
-            $post->image()->create([
-                'url' => $imagePath, // Guardar la ruta de la imagen
-            ]);
-        }
-
-        // Asignar los tags seleccionados al post
-        $post->tags()->sync($this->selectedTags);
-
-
-        // Mostrar un mensaje de éxito
         $this->redirectRoute('admin.posts.index');
-        session()->flash('message', 'Post creado exitosamente.');
+        $this->resetForm();
     }
 
     // Método para cargar un post en el formulario de edición
@@ -128,58 +154,6 @@ class PostsIndex extends Component
         $this->dispatch('reinitializeCKEditor');
     }
 
-    // Método para actualizar un post
-    public function updatePost()
-    {
-        //Obtener las reglas  de validacion
-        $rules = CreatePostRequest::getRules($this->status);
-
-        //Validar  los datos del formulario
-        $this->validate($rules);
-
-
-        $post = Post::findOrFail($this->postId);
-
-        // Si se subió una nueva imagen, guardarla
-        if ($this->image) {
-            // Eliminar la imagen anterior si existe
-            if ($post->image) {
-                Storage::delete('public/' . $post->image->url);
-                $post->image->delete();
-            }
-
-            // Guardar la nueva imagen en la carpeta storage/app/public/posts
-            $imagePath = $this->image->store('posts', 'public');
-
-            //Crear una nueva imagen en la base de datos con la relacion polimorfica
-            $post->image()->create([
-                'url' => $imagePath,
-            ]);
-        }
-
-        $post->update([
-            ...$this->pull([
-                'name',
-                'slug',
-                'status',
-                'extract',
-                'body',
-                'category_id',
-                'image'
-            ]),
-        ]);
-
-        // Asignar los tags seleccionados al post
-        $post->tags()->sync($this->selectedTags);
-
-        // Limpiar el formulario
-        $this->resetForm();
-
-        $this->redirectRoute('admin.posts.index');
-        // Mostrar un mensaje de éxito
-        session()->flash('message', 'Post actualizado exitosamente.');
-    }
-
     // Método para eliminar un post
     public function deletePost($id)
     {
@@ -193,8 +167,13 @@ class PostsIndex extends Component
     // Método para resetear el formulario
     public function resetForm($resetIsCreating = false)
     {
+        //Limpiar los campos del formulario
+        $this->reset(['name','slug','status', 'path_image','body','category_id','extract','postId','selectedTags']);
+
         // Emitir evento para limpiar CKEditor
         $this->dispatch('resetCKEditor');
+
+        $this->post = null;
 
         if ($resetIsCreating) {
             $this->isCreating = false;

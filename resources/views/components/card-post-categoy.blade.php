@@ -2,7 +2,12 @@
 <article class="entry">
 
     <div class="entry-img">
-        <img src="{{Storage::url($post->image->url)}}" alt="" class="img-fluid">
+        @if ($post->image)
+            <img src="{{Storage::url($post->image->url)}}" alt="" class="img-fluid">
+        @else
+            <img src="{{ asset('assets/img/blog/blog-inside-post.jpg') }}" alt="" class="img-fluid">
+        @endif
+        
     </div>
 
     <h2 class="entry-title">

@@ -27,7 +27,11 @@
                     <div class="sidebar-item recent-posts">
                         @foreach ($similares as $similar)
                         <div class="post-item clearfix">
-                            <img src="{{ Storage::url($similar->image->url) }}" alt="">
+                            <img style="width: 70px; height: 70px;"   src="@if ($post->image)
+                                {{ Storage::url($similar->image->url) }}" alt=""> 
+                            @else 
+                                {{ asset('assets/img/blog/blog-recent-4.jpg') }}
+                            @endif 
                             <h4><a href="{{ route('posts.show', $similar) }}">{{$similar->name}}</a></h4>
                         </div>
                         @endforeach

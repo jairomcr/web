@@ -9,7 +9,7 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto active" href="/">Home</a></li>
+                <li><a class="nav-link scrolltos" href="/">Home</a></li>
                 <li><a class="nav-link scrollto" href="#about">About</a></li>
                 <li><a class="nav-link scrollto" href="{{ route('products.show') }}">Productos</a></li>
                 <div class="dropdown"><a href="#"><span>Articulos</span> <i class="bi bi-chevron-down"></i></a>

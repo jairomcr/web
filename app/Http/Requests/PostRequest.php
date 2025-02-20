@@ -4,19 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePostRequest extends FormRequest
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        if ($this->user_id == auth()->user()->id) {  
-            return true;
-        } else {
-             return false;
-        }
-        //return true;
+        return true;
     }
 
     /**
@@ -26,11 +21,17 @@ class CreatePostRequest extends FormRequest
      */
     public function rules()
     {
+        $post = $this->route()->parameter("post");
+
         $rules = [
             'name' => 'required|min:3',
-            'slug' => 'required|unique:posts,slug',
+            'slug' => 'required|unique:posts',
             'status' => 'required|in:1,2',
         ];
+        
+        if ($post) {
+            $rules['slug'] = 'required|unique:posts,slug,' . $post->id;
+        }
 
         if ($this->status == 2) {
             $rules = array_merge($rules,[
@@ -46,7 +47,7 @@ class CreatePostRequest extends FormRequest
     public static function getRules($status) {
         $rules = [
             'name' => 'required|min:3',
-            'slug' => 'required',
+            'slug' => 'required|unique:posts',
             'status' => 'required|in:1,2',
         ];
 

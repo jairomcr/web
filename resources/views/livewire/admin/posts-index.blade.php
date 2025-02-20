@@ -1,11 +1,31 @@
 <div>
-    <!-- Botón para alternar entre crear y ver posts -->
-    <button wire:click="toggleCreateForm" class="btn btn-primary mb-3">
-        {{ $isCreating ? 'Listado Artículos' : 'Crear Nuevo Artículos' }}
-    </button>
+    <div class="d-flex flex-column flex-md-row align-items-center mb-3">
+        <!-- Botón -->
+        <div class="col mb-md-0 me-md-3 mb-2">
+            <!-- Margen inferior en móviles y margen derecho en desktop -->
+            <button wire:click="toggleCreateForm" class="btn btn-primary btn-sm" style="width: 150px; height: 40px;">
+                {{ $isCreating ? 'Listado Artículos' : 'Crear Nuevo Artículos' }}
+            </button>
+        </div>
+    
+        <!-- Input con ícono de búsqueda -->
+        @if (!$isCreating)
+        <div class="w-100 w-md-auto">
+            <div class="input-group">
+                <input type="text" wire:model.live="search" class="form-control"
+                    placeholder="Buscar nombre del artículo...">
+                <span class="input-group-text">
+                    <i class="fas fa-search"></i>
+                </span>
+            </div>
+        </div>
+        @endif
+    </div>
+    
+    <!-- Mensaje de alerta -->
     <div>
         @if (session()->has('message'))
-            <x-adminlte-alert theme="success" title="{{ session('message') }}" dismissable></x-adminlte-alert>
+        <x-adminlte-alert theme="success" title="{{ session('message') }}" dismissable></x-adminlte-alert>
         @endif
     </div>
 
@@ -15,10 +35,6 @@
             <div class="card-body">
                 <form wire:submit.prevent="{{ $postId ? 'updatePost' : 'createPost' }}">
                     @csrf
-                    <div class="form-group">
-                        <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
-                    </div>
-                    
                     <div class="row" x-data="{ slug: '' }" x-init="slug = @js($slug)">
                         <div class="col">
                             <!-- Campo "name" -->

@@ -44,20 +44,7 @@
 <body>
 
     <!-- ======= Top Bar ======= -->
-    <section id="topbar" class="d-flex align-items-center">
-        <div class="container d-flex justify-content-center justify-content-md-between">
-            <div class="contact-info d-flex align-items-center">
-                <i class="bi bi-envelope d-flex align-items-center"><a
-                        href="mailto:contact@example.com">contact@example.com</a></i>
-                <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
-            </div>
-
-            <div class="cta d-none d-md-flex align-items-center">
-                <a href="#about" class="scrollto me-3">Get Started</a>
-                <a href="#about" class="scrollto">Get Started</a>
-            </div>
-        </div>
-    </section>
+    @include('front-end.layouts.topbar')
 
     <!-- ======= Header ======= -->
     @include('front-end.layouts.header')
@@ -68,7 +55,7 @@
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
-    @include('front-end.posts.layouts.footer')
+    @include('front-end.layouts.footer')
     <!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
