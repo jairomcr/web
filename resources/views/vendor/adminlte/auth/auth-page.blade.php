@@ -17,6 +17,13 @@
 @endphp
 
 @section('adminlte_css')
+    @parent
+    <style>
+        body {
+            background-color: #6fa2cc !important;
+            /* Cambia este color por el que desees */
+        }
+    </style>
     @stack('css')
     @yield('css')
 @stop

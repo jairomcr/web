@@ -391,6 +391,11 @@ return [
             'route' => 'admin.products.create',
             'icon' => 'fas fa-fw fa-file',
         ],
+        [
+            'text' => 'Configuración',
+            'route' => 'admin.settings.index',
+            'icon' => 'fas fa-fw fa-file',
+        ],
     ],
 
     /*

@@ -1,10 +1,13 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SettingsController;
+
 
 // Aplicar middleware a una ruta específica
 Route::get('/', [HomeController::class, 'index'])
@@ -16,5 +19,7 @@ Route::middleware('preventBackHistory')->group(function () {
     Route::resource('categories', CategoryController::class)->names('admin.categories');
     Route::resource('posts', PostController::class)->names('admin.posts');
     Route::resource('products', ProductController::class)->names('admin.products');
+    Route::resource('settings', SettingsController::class)->names('admin.settings');
+    
 });
 
