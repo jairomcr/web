@@ -18,7 +18,7 @@
         </div>
         <div class="card-body">
             @if ($categories->count())
-            <div class="table-responsive">
+            <div  class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -66,17 +66,15 @@
                 </thead>
                 <tbody>
                     @foreach ($categories as $category)
-                    <tr>
+                    <tr wire:key="category-{{$category->id}}">
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->slug }}</td>
                         <td width="10px">
-                            <a href="#" class="btn btn-xs btn-default text-primary mx-1 shadow edit-button">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
-                            </a>
+                            @livewire('admin.categories-edit', ['category' => $category], key( $category->id))
                         </td>
                         <td width="10px">
-                            <a href="#" class="btn btn-xs btn-default text-danger mx-1 shadow edit-button">
+                            <a wire:click="dispatch('deleteCategory',{ categoryId : {{$category->id}}})" class="btn btn-xs btn-default text-danger mx-1 shadow edit-button">
                                 <i class="fa fa-lg fa-fw fa-trash"></i>
                             </a>
                         </td>

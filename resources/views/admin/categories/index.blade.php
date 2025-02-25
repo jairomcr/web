@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-   @livewire('admin.categories-index')
+    @livewire('admin.categories-index')
 @stop
 
 @section('css')
@@ -16,12 +16,38 @@
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        Livewire.on('alert',function(message){
+        Livewire.on('alert', function(message) {
             Swal.fire({
-            title:"Buen trabajo!",
-            text: message,
-            icon: "success"
+                title: "¡Buen trabajo!",
+                text: message,
+                icon: "success"
             });
-        })    
-    </script> 
+        })
+        Livewire.on('deleteCategory', categoryId => {
+            Swal.fire({
+                title: "¿Estas seguro?",
+                text: "¡No podrás revertir esto.!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, borrarlo",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('deleted', {
+                        categoryId: categoryId
+                    });
+                    Livewire.on('alert',function(message){
+                        Swal.fire({
+                        title: "¡Eliminar!",
+                        text: message,
+                        icon: "success",
+                        confirmButtonText: "Continuar",
+                        });
+                    });  
+                }
+            });
+        });
+    </script>
 @stop

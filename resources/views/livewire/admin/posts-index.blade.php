@@ -1,4 +1,11 @@
 <div>
+    <!-- Mensaje de alerta -->
+    <div>
+        @if (session()->has('message'))
+        <x-adminlte-alert theme="success" title="{{ session('message') }}" dismissable></x-adminlte-alert>
+        @endif
+    </div>
+    
     <div class="d-flex flex-column flex-md-row align-items-center mb-3">
         <!-- Botón -->
         <div class="col mb-md-0 me-md-3 mb-2">
@@ -19,13 +26,6 @@
                 </span>
             </div>
         </div>
-        @endif
-    </div>
-    
-    <!-- Mensaje de alerta -->
-    <div>
-        @if (session()->has('message'))
-        <x-adminlte-alert theme="success" title="{{ session('message') }}" dismissable></x-adminlte-alert>
         @endif
     </div>
 
@@ -199,7 +199,7 @@
             @foreach ($posts as $post)
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body" wire:key="post-{{$post->id}}">
                             <h1 class="card-title">{{ $post->name }}</h1>
                             <p class="card-text">{{ Str::limit($post->extract, 100) }}</p>
                             <p class="card-text"><small class="text-muted">{{ $post->category->name }}</small></p>
@@ -210,8 +210,7 @@
                                     class="btn- btn-primary btn-sm mr-2">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button wire:click="deletePost({{ $post->id }})"
-                                    wire:confirm="¿Estás seguro de que quieres eliminar esta publicación?"
+                                <button wire:click="dispatch('deletePost',{ postId : {{$post->id}}})"
                                     class="btn- btn-danger btn-sm">
                                     <i class="fas fa-trash"></i>
                                 </button>

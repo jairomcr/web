@@ -37,6 +37,8 @@ class PostsIndex extends Component
     public $postId = null; // Para almacenar el ID del post que se está editando
     public $post;
 
+    public $listeners = ['deleted'=>'deleted'];
+
     public function mount()
     {
         $this->categories = Category::pluck('name', 'id');
@@ -155,13 +157,16 @@ class PostsIndex extends Component
     }
 
     // Método para eliminar un post
-    public function deletePost($id)
+    public function deleted($postId)
     {
-        $post = Post::findOrFail($id);
-        $post->delete();
+        $post = Post::find($postId)->first();
 
-        // Mostrar un mensaje de éxito
-        session()->flash('message', 'Post eliminado exitosamente.');
+        if ($post) {
+            $post->delete();
+            $this->dispatch('alert', 'Artículo eliminado exitosamente.');
+        } else {
+            $this->dispatch('alert', 'Artículo no encontrado.');
+        }
     }
 
     // Método para resetear el formulario

@@ -11,13 +11,17 @@ class CategoriesIndex extends Component
     use WithPagination;
 
     protected $paginationTheme = "bootstrap";
-    protected $listeners = ['render'];
 
     public $name,$slug,$search="",$sort='id',$direction='desc';
+    public $categoryId;
+    //public $categories;
+  
+    protected $listeners = ['refresh' => '$refresh', 'deleted'];
 
     public function updatingSearch() {
         $this->resetPage();
     }
+    
 
     public function render()
     {
@@ -41,4 +45,16 @@ class CategoriesIndex extends Component
         }
     
     }
+    public function deleted($categoryId): void
+    {
+        $category = Category::find($categoryId)->first();
+        if ($category) {
+            $category->delete();
+            $this->dispatch('alert', 'Categoría eliminada correctamente.');
+        } else {
+            $this->dispatch('alert', 'Categoría no encontrada.');
+        }
+        
+    }
+      
 }

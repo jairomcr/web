@@ -9,7 +9,7 @@ use Livewire\Component;
 class CategoriesCreate extends Component
 {
     public $open = false;
-    public $name,$slug;
+    public $name, $slug;
 
     public function generateSlug($title)
     {
@@ -39,19 +39,19 @@ class CategoriesCreate extends Component
         ];
         
         // Validate the data
-        $request = $this->validate(CategoryRequest::rules(), $messages);
+        $this->validate(CategoryRequest::rules(), $messages);
 
         //Save categories
         Category::create([ 
-            "name"=> $request,
-            "slug"=> $request,
+            "name"=> $this->name,
+            "slug"=> $this->slug,
         ]);
 
         // Reset the fields
         $this->reset(['open','name','slug']);
 
         //Broadcast events
-        $this->dispatch('categories-index','render');
+        $this->dispatch('refresh');
         $this->dispatch('alert', 'Sea creado una nueva caregotía');
     }
     public function render()

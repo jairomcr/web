@@ -12,7 +12,6 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Nombre:</label>
                                 <input type="text" class="form-control" wire:model.defer="name" wire:input="generateSlug($event.target.value)" >
@@ -30,8 +29,6 @@
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            
-                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" wire:click="closeModal">Cerrar</button>
