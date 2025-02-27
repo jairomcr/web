@@ -331,11 +331,6 @@ return [
             'route' => 'admin.categories.index',
             'icon' => 'fab fa-fw fa-buffer',
         ],
-        [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
         /* [
             'text' => 'multilevel',
             'icon' => 'fas fa-fw fa-share',
@@ -394,7 +389,7 @@ return [
         [
             'text' => 'Configuración',
             'route' => 'admin.settings.index',
-            'icon' => 'fas fa-fw fa-file',
+            'icon' => 'fas fa-fw fa-settings',
         ],
     ],
 
