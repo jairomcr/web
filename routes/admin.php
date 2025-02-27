@@ -9,10 +9,16 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingsController;
 
 
+
+
+
+
 // Aplicar middleware a una ruta específica
 Route::get('/', [HomeController::class, 'index'])
     ->name('admin.home')
     ->middleware('preventBackHistory');
+
+
 
 // Aplicar middleware a un grupo de rutas
 Route::middleware('preventBackHistory')->group(function () {

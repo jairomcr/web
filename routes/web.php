@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +15,11 @@ Route::get('tag/{tag}', [HomeController::class, 'tag'])->name('posts.tag');
 Route::get('products', [HomeController::class, 'product_list'])->name('products.show');
 Route::get('products/{id}/detail', [HomeController::class, 'product_detail'])->name('products.detail');
 
+// Rutas de autenticación de AdminLTE
+Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password-request');
+Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password-email');
+Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password-reset');
+Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password-update');
 
 Route::middleware([
     'auth:sanctum',
