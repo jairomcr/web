@@ -389,7 +389,7 @@ return [
         [
             'text' => 'Configuración',
             'route' => 'admin.settings.index',
-            'icon' => 'fas fa-fw fa-settings',
+            'icon' => 'fas fa-fw fa-cog',
         ],
     ],
 
@@ -499,7 +499,7 @@ return [
             ],
         ],
         'BsCustomFileInput' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

@@ -17,12 +17,12 @@ return new class extends Migration
             $table->string('title');
             $table->string('subtitle');
             $table->string('email')->unique();
-            $table->string('logo');
-            $table->string('url_video');
-            $table->bigInteger('phone_number');
+            $table->string('logo')->nullable();
+            $table->string('video')->nullable();
+            $table->bigInteger('phone');
             $table->longText('description')->nullable();
             $table->text('extract')->nullable();
-            $table->json('executive')->nullable();
+            $table->json('executives')->nullable();
             $table->json('social_links')->nullable();
         
             $table->timestamps();
