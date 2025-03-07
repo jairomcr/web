@@ -22,14 +22,14 @@
                 <div class="row gy-4">
 
                     <div class="col-lg-8">
-                        <img src="{{ asset($product->image->url ?? '/storage/products/default.jpeg') }}" class="img-fluid"
+                        <img src="{{ Storage::url($product->image->url) }}" class="img-fluid"
                             alt="Imagen para el producto {{ $product->name }}">
                     </div>
 
                     <div class="col-lg-4">
                         <ul class="portfolio-info">
                             <li><b class="h3">Precio: <i>{{ $product->price }} CUP</i></b></li>
-                            <li><b class="h4">Publicado por: <i>{{ $product->user->name }}</i></b></li>
+                            <li><b class="h4">Publicado por `<i>{{ $product->user->name }}`</i></b></li>
                         </ul>
                     </div>
                     <div class="portfolio-description">

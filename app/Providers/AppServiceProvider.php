@@ -25,6 +25,5 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         view()->share('categories', Category::all());
-        view()->share('products', Product::where('status', 2)->latest('id')->paginate(3));
     }
 }

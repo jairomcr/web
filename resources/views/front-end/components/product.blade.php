@@ -1,11 +1,11 @@
 <article class="entry">
 
     <div class="entry-img">
-        <img src="{{ asset($product->image->url ?? '/storage/products/default.jpeg') }}" alt="" class="img-fluid">
+        <img src="{{ Storage::url($product->image->url) }}" alt="" class="img-fluid" style="width: 60%;">
     </div>
 
     <h2 class="entry-title">
-        <a href="{{ route('products.detail', ['id' => $product->id]) }}">{{ $product->name }}</a>
+        <a href="{{ route('products.detail', ['product' => $product->slug]) }}">{{ $product->name }}</a>
     </h2>
     <div class="entry-meta">
         <ul>
@@ -20,7 +20,7 @@
     <div class="entry-content">
         <p> {{ $product->info }} </p>
         <div class="read-more">
-            <a href="{{ route('products.detail', ['id' => $product->id]) }}">Ver Detalles.</a>
+            <a href="{{ route('products.detail', ['product' => $product->slug]) }}">Ver Detalles.</a>
         </div>
     </div>
 

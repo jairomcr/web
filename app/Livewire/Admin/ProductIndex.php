@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
+use Illuminate\Support\Str;
+use Livewire\Attributes\On; 
+
+use App\Services\ProductService;
 
 class ProductIndex extends Component
 {
@@ -14,25 +17,36 @@ class ProductIndex extends Component
 
     public string $currentSearchProduct;
 
-    public bool $isCreating= false;
+    public int $currentProductId = -1;
+
     public bool $isEditing = false;
+    public bool $isCreating = false;
 
     #[Computed]
-    public function filteredProducts() {
-        if (empty($this->currentSearchProduct)) return Product::where('user_id', auth()->user()->id)->latest('id')->paginate(3);
-
-        $filProducts = Product::where('name','like', '%' . $this->currentSearchProduct . '%')->latest('id')->paginate(3);
-        return $filProducts;
+    public function filteredProducts()
+    {
+        $productService = app(ProductService::class);
+        return $productService->getSimilarProductsBy('name', $this->currentSearchProduct)->paginate(3);
     }
 
-    public function showCreateForm() {
-        $this->isCreating = true;
+    #[On('show_edit_modal')]
+    public function onProductEdit(int $id) {
+        $this->currentProductId = $id;
+        $this->isEditing = true;
     }
 
-    public function render()
+    public function toggleCreateModal() {
+        $this->isCreating = !$this->isCreating;
+    }
+
+    public function toggleEditModal() {
+        $this->isEditing = !$this->isEditing;
+    }
+
+    public function render(ProductService $productService)
     {
         return view('livewire.admin.product-index', [
-            'products' => Product::paginate(3)
+            'products' => $productService->latest()->paginate(3),
         ]);
     }
 }

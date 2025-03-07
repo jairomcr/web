@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class ProductSeeder extends Seeder
 {
@@ -14,65 +16,31 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        /**
-         * @var \Illuminate\Support\Collection<string>
-         */
-        $paths = $this->getImagePaths();
+        foreach ($this->getImagePaths() as $url) {
+            $name = fake()->unique()->streetName();
 
-        foreach ($paths as $path) {
             $product = Product::factory()->createOne([
                 // Fancy (and super fake) product name
-                'name' => "Cerveza " . fake()->unique()->streetName(),
+                'name' => $name,
                 'info' => fake()->unique()->sentence(20),
                 'desc' => fake()->realText(maxNbChars: 500),
-                'price' => fake()->randomFloat(500),
-                // Make at least 70% of the values in the status column to be 1 (active)
-                // Boolean math is faster than array randomness
-                'status' => fake()->boolean(70) ? 1 : 2,
-                'user_id' => User::all()->random()->id,
-            ]);
-
-            $image = Image::factory()->createOne([
-                'url' => $path,
-                'imageable_id' => $product->id,
-                'imageable_type' => Product::class
-            ]);
-
-
-        }
-        
-
-        for ($i = 0; $i < 10; $i++) {
-            $product = Product::factory()->createOne([
-                // Fancy (and super fake) product name
-                'name' => "Cerveza " . fake()->unique()->streetName(),
-                'info' => fake()->unique()->sentence(20),
-                'desc' => fake()->realText(maxNbChars: 500),
-                'price' => fake()->randomFloat(500),
-                // Make at least 70% of the values in the status column to be 1 (active)
-                // Boolean math is faster than array randomness
+                'price' => fake()->randomFloat(2, 100, 500),
+                // All generated products are 'active'
                 'status' => 2,
                 'user_id' => User::all()->random()->id,
+                'slug' => Str::slug($name)
             ]);
 
-            $image = Image::factory()->createOne([
-                'url' => null,
+            Image::factory()->createOne([
+                'url' => $url,
                 'imageable_id' => $product->id,
                 'imageable_type' => Product::class,
             ]);
         }
     }
 
-    private function getImagePaths(): \Illuminate\Support\Collection
+    public function getImagePaths()
     {
-
-        $fileNames = \Illuminate\Support\Facades\Storage::disk('public')->files('products');
-        $imagePaths = collect([]);
-
-        foreach ($fileNames as $fileName) {
-            $imagePaths->push("storage/$fileName");
-        }
-
-        return $imagePaths;
+        return Storage::disk('public')->files('products');
     }
 }

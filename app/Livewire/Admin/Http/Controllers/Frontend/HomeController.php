@@ -7,13 +7,14 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Tag;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     //protected $paginationTheme = "bootstrap";
 
-    public function index()
+    public function index(ProductService $service)
     {
         
         $posts = Post::with(['image', 'tags', 'user'])->where('status', 2)->latest('id')->paginate(4);
@@ -21,7 +22,7 @@ class HomeController extends Controller
         $data = [
             'pageTitle' => 'Web Serveces',
             'posts' => $posts,
-            
+            'products' => $service->latest_active(6)
         ];
 
         return view('front-end.index', $data);
@@ -69,10 +70,11 @@ class HomeController extends Controller
         return view('front-end.posts.tag', $data);
     }
 
-    public function product_list() {
+    public function product_list(ProductService $service) {
        
         return view('front-end.components.product-list', [
             'pageTitle' => 'Lista de Productos',
+            'products' => $service->latest_active(5)
         ]);
     }
 
@@ -80,7 +82,7 @@ class HomeController extends Controller
 
         return view('front-end.components.product-detail', [
             'product' => $product,
-            'pageTitle' => 'Detalles del Producto',
+            'pageTitle' => 'Lista de Productos',
         ]);
     }
 }

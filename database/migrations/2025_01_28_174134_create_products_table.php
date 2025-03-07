@@ -19,12 +19,12 @@ return new class extends Migration
 
             $table->bigInteger('user_id');
 
-            $table->enum('status', [1, 2])->default(1);
+            $table->enum('status', [1, 2])->default(2);
 
             $table->float('price')->default(0.0);
 
             $table->tinyText('info')->nullable();
-
+            $table->tinyText('slug');
             $table->longText('desc')->nullable();
             
 

@@ -20,7 +20,9 @@ Route::resource('users', UserController::class)->names('admin.users');
 Route::middleware('preventBackHistory')->group(function () {
     Route::resource('categories', CategoryController::class)->names('admin.categories');
     Route::resource('posts', PostController::class)->names('admin.posts');
-    Route::resource('products', ProductController::class)->names('admin.products');
-    Route::resource('settings', SettingsController::class)->names('admin.settings');   
+    Route::view('products', 'admin.products.index')->name('admin.products.index');
+    Route::view('tags', 'admin.tags.index')->name('admin.tags.index');
+    Route::resource('settings', SettingsController::class)->names('admin.settings');
+    
 });
 
