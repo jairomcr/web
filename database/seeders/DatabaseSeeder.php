@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         //This is to create a directory, where the images are saved 
         //Storage::makeDirectory('posts');
 
+        $this->call(RoleSeeder::class);
 
         //Running the seeders
         $this->call(UserSeeder::class);

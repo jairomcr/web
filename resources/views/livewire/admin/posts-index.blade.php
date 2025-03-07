@@ -117,7 +117,7 @@
 
                     <div class="form-group">
                         <label for="image">Imagen:</label>
-                        <input type="file" wire:model="image" class="form-control" id="image">
+                        <input type="file" wire:model="image" class="form-control" id="image" accept="image/*">
                         @error('image')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -200,8 +200,8 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body" wire:key="post-{{$post->id}}">
-                            <h1 class="card-title">{{ $post->name }}</h1>
-                            <p class="card-text">{{ Str::limit($post->extract, 100) }}</p>
+                            <h1 class="card-title mb-2">{{ $post->name }}</h1>
+                            <p class="card-text text-muted">{{ Str::limit($post->extract, 100) }}</p>
                             <p class="card-text"><small class="text-muted">{{ $post->category->name }}</small></p>
 
                             {{-- Edit and delete buttons --}}

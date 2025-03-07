@@ -17,6 +17,7 @@ class SettingsIndex extends Component
     public $extract, $executives = [], $socialLinks = [];
     public $newExecutive = ['name' => '', 'position' => '', 'photo' => null,];
     public $logoUrl;
+    public $videoUrl;
     public $settingId;
     public $showExecutiveForm = false;
 
@@ -39,8 +40,8 @@ class SettingsIndex extends Component
             $this->socialLinks = $settings->social_links ?? [];
             $this->executives = $settings->executives ?? [];
             $this->logoUrl = $settings->logo ? Storage::url($settings->logo) : null;
+            $this->videoUrl = $settings->video ? Storage::url($settings->video) : null;
             $this->extract = $settings->extract;
-            $this->video = $settings->video;
         }
     }
     public function addExecutive()
@@ -106,7 +107,9 @@ class SettingsIndex extends Component
             }
 
             if ($this->video) {
-                $data['video'] = $this->video->store('videos', 'public');
+                $videoPath = $this->video->store('videos', 'public');
+                $data['video'] = $videoPath;
+                $this->videoUrl = Storage::url($videoPath);
             }
 
             $this->settingId ? $this->updateSetting($data) : $this->createSetting($data);

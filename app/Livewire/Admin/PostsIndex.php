@@ -68,27 +68,28 @@ class PostsIndex extends Component
     public function createPost()
     {
         $this->handlePostOperation();
-        session()->flash('message', 'Post creado exitosamente.');
+        session()->flash('message', 'Artículo creado exitosamente.');
     }
 
     public function updatePost()
     {
         $this->handlePostOperation();
-        session()->flash('message', 'Post actualizado exitosamente.');
+        session()->flash('message', 'Artículo actualizado exitosamente.');
     }
 
     private function handlePostOperation()
     {
-        $postId = $this->post ? $this->post->id : null;
+        $postId = $this->postId ?? null;
         
-        $rules = PostRequest::getRules($this->status);
+        $rules = PostRequest::getRules($this->status, $postId);
         $this->validate($rules);
 
         $userId = auth()->id(); // Cache the authenticated user ID
         $imagePath = $this->image ? $this->image->store('posts', 'public') : null;
-
+        
         // Use a transaction to ensure data integrity
         DB::transaction(function () use ($postId, $userId, $imagePath) {
+    
             if ($postId) {
                 // Update existing post
                 $post = Post::findOrFail($postId);

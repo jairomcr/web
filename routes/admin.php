@@ -7,18 +7,14 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingsController;
-
-
-
-
-
+use App\Http\Controllers\Admin\UserController;
 
 // Aplicar middleware a una ruta específica
 Route::get('/', [HomeController::class, 'index'])
     ->name('admin.home')
     ->middleware('preventBackHistory');
 
-
+Route::resource('users', UserController::class)->names('admin.users');
 
 // Aplicar middleware a un grupo de rutas
 Route::middleware('preventBackHistory')->group(function () {

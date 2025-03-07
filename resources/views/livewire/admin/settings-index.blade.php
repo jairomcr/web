@@ -100,16 +100,25 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                         <!-- Mostrar el video actual -->
-                        @if ($video)
-                        <div class="mt-3">
-                            <h3 class="h5">{{ is_string($video) ? 'Video Actual' : 'Vista Previa del Video' }}</h3>
+                        @if ($videoUrl  && !$video)
+                            <div class="mt-3">
+                                <h3 class="h5">Video Actual</h3>
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video class="embed-responsive-item" controls>
+                                        <source src="{{$videoUrl}}" type="video/mp4">
+                                        Tu navegador no soporta la reproducción de video.
+                                    </video>
+                                </div>                           
+                            </div>
+                        @elseif ($video)
+                          
+                            <h3 class="h5 mt-3">Vista Previa del Video</h3>
                             <div class="embed-responsive embed-responsive-16by9">
                                 <video class="embed-responsive-item" controls>
-                                    <source src="{{ is_string($video) ? asset('storage/' . $video) : $video->temporaryUrl() }}" type="video/mp4">
+                                    <source src="{{$video->temporaryUrl()}}" type="video/mp4">
                                     Tu navegador no soporta la reproducción de video.
                                 </video>
                             </div>
-                        </div>
                         @endif
                     </div>
                     <!-- /.form-group -->

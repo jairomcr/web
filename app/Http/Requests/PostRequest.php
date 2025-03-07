@@ -44,15 +44,22 @@ class PostRequest extends FormRequest
         }
         return $rules;
     }
-    public static function getRules($status) {
-        $rules = [
-            'name' => 'required|min:3',
-            'slug' => 'required|unique:posts',
-            'status' => 'required|in:1,2',
-        ];
-
+    public static function getRules($status,$postId = null) {
+        if($postId != null) {   
+            $rules = [
+                'name' => 'required|min:3',
+                'slug' => 'required|unique:posts,slug,' . $postId,
+                'status' => 'required|in:1,2',
+            ];
+        } else {
+            $rules = [
+                'name' => 'required|min:3',
+                'slug' => 'required|unique:posts',
+                'status' => 'required|in:1,2',
+            ];
+        }
         if ($status == 2) {
-            $rules = array_merge($rules,[
+            $rules = array_merge($rules, [
                 'image' => 'required|image|max:2048',
                 'category_id' => 'required|exists:categories,id',
                 'tags' => 'required|array',
@@ -61,6 +68,7 @@ class PostRequest extends FormRequest
                 'body' => 'required',
             ]);
         }
+       
         return $rules;
     }
 }
