@@ -76,11 +76,11 @@ class HomeController extends Controller
         ]);
     }
 
-    public function product_detail($id) {
+    public function product_detail(Product $product) {
 
         return view('front-end.components.product-detail', [
-            'product' => Product::findOrFail($id),
-            'pageTitle' => 'Lista de Productos',
+            'product' => $product,
+            'pageTitle' => 'Detalles del Producto',
         ]);
     }
 }

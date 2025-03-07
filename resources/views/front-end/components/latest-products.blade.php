@@ -12,16 +12,18 @@
                 @foreach ($products as $product)
                     <div class="col-lg-4 col-md-6 portfolio-item filter-app"
                         style="position: absolute; left: 0px; top: 0px;">
-                        <img src="{{ asset('storage/'.$product->image->url) }}" class="img-fluid" alt="">
+                        <img src="{{ asset('storage/' . $product->image->url) }}" class="img-fluid" alt="">
                         <div class="portfolio-info">
                             <h4>{{ $product->name }}</h4>
                             <p>{{ $product->info }}</p>
-                            <a href="{{ asset('storage/'.$product->image->url) }}" data-gallery="portfolioGallery"
-                                class="portfolio-lightbox preview-link" title="{{ $product->name }}">
-                                <i class="bx bx-plus"></i>
-                            </a>
-                            <a href="{{  route('products.detail', ['product' => $product->slug]) }}" class="details-link"
-                                title="More Details"><i class="bx bx-link"></i></a>
+                            <div>
+                                <a href="{{ asset('storage/' . $product->image->url) }}" data-gallery="portfolioGallery"
+                                    class="portfolio-lightbox preview-link" title="{{ $product->name }}">
+                                    <i class="bx bx-plus"></i>
+                                </a>
+                                <a href="{{  route('products.detail', ['product' => $product->slug]) }}"
+                                    class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
                         </div>
                     </div>
                 @endforeach
