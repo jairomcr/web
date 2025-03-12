@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Post;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.posts.index');
+        return view("admin.roles.index");
     }
 
     /**
@@ -22,9 +20,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('name','id');
-
-        return view('admin.posts.create', compact('categories'));
+        //
     }
 
     /**
@@ -38,23 +34,23 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(string $id)
     {
-        return view('admin.posts.show',compact('post'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(string $id)
     {
-        return view('admin.posts.edit', compact('post'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -62,7 +58,7 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(string $id)
     {
         //
     }

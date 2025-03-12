@@ -22,23 +22,22 @@
                 <div class="row">
                     <div class="col-xl-4 col-lg-5" data-aos="fade-up">
                         <div class="content">
-                            <h3>Why Choose Flexor for your company website?</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.
-                                Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus
-                                optio ad corporis.
-                            </p>
+                            <h3><?= $settings->subtitle ?? 'Why Choose Flexor for your company website?' ?></h3>
+                                @if (isset($settings->extract))
+                                    <p>{{$settings->extract}}</p>
+                                @else
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua.
+                                    Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus
+                                    optio ad corporis.</p>
+                                @endif
                             <div class="text-center">
                                 <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-8 col-lg-7 d-flex">
-                        @include('front-end.components.latest-info', [
-                            'last_post' => \App\Models\Post::latest()->first(),
-                            'last_product' => \App\Models\Product::latest()->first(),
-                        ])
+                        @include('front-end.components.latest-info')
                     </div>
                 </div>
 
@@ -54,9 +53,7 @@
         <!-- End Values Section -->
 
         <!-- ======= Portfolio Section ======= -->
-        @include('front-end.components.latest-products', [
-            'products' => \App\Models\Product::latest()->take(6)->get(),
-        ])
+        @include('front-end.components.latest-products')
         <!-- End Portfolio Section -->
 
         <!-- ======= Team Section ======= -->

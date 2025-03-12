@@ -1,17 +1,16 @@
 <div class="col">
-    <div class="card bg-dark">
-
-        <div class="card-header p-3 bg-{{ $product->status == 1 ? 'dark' : 'primary' }}">
+    <div class="card">
+        <div class="card-header p-3 bg-{{ $product->status == 1 ? 'dark' : 'light' }}">
             <div class="row">
                 <div class="col">
                     <span class="h4 align-middle">$ {{ $product->price }}</span>
                 </div>
                 <div class="btn-group">
-                    <button wire:click="edit" class="btn border-primary btn-dark p-1">Editar</button>
-                    <button wire:click="toggle_activation" class="btn btn-dark border-primary p-1">
+                    <button wire:click="edit" class="btn  btn-secondary p-1"><i class="fa fa-ms fa-fw fa-pen"></i></button>
+                    <button wire:click="delete" class="btn  btn-danger p-1"><i class="fa fa-lg fa-fw fa-trash"></i></button>
+                    <button wire:click="toggle_activation" class="btn btn-warning  p-1">
                         {{ $product->status == 1 ? 'Activar' : 'Desactivar' }}
                     </button>
-                    <button wire:click="delete" class="btn border-primary btn-dark p-1">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -22,7 +21,7 @@
                 <div class="card bg-transparent">
                     <div class="card-header p-0" id="heading{{ $product->id }}-1">
                         <h5 class="mb-0">
-                            <button class="btn container-fluid btn-secondary collapsed" type="button"
+                            <button class="btn container-fluid  collapsed" type="button"
                                 data-toggle="collapse" data-target="#collapse{{ $product->id }}-1" aria-expanded="false"
                                 aria-controls="collapse{{ $product->id }}-1">
                                 Imagen Del Producto
@@ -43,7 +42,7 @@
                 <div class="card bg-transparent">
                     <div class="card-header p-0" id="heading{{ $product->id }}-2">
                         <h5 class="mb-0">
-                            <button class="btn collapsed btn-secondary container-fluid" type="button"
+                            <button class="btn collapsed  container-fluid" type="button"
                                 data-toggle="collapse" data-target="#collapse{{ $product->id }}-2" aria-expanded="false"
                                 aria-controls="collapse{{ $product->id }}-2">
                                 Informacion Del Producto
@@ -62,7 +61,7 @@
                 <div class="card bg-transparent">
                     <div class="card-header p-0" id="heading{{ $product->id }}-3">
                         <h5 class="mb-0">
-                            <button class="btn collapsed container-fluid btn-secondary" type="button"
+                            <button class="btn collapsed container-fluid " type="button"
                                 data-toggle="collapse" data-target="#collapse{{ $product->id }}-3" aria-expanded="false"
                                 aria-controls="collapse{{ $product->id }}-3">
                                 Descipcion Del Producto

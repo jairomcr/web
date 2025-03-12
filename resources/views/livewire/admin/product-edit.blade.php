@@ -3,8 +3,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title h4" id="exampleModalXlLabel">Extra large modal</h5>
-        <button type="button" class="btn btn-danger" aria-label="Close" wire:click="closeEditProduct">
-            <span class="fas fa-times"></span>
+        <button type="button" class="close" aria-label="Close" wire:click="closeEditProduct">
+            <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" style="overflow-y: scroll; height: 80vh;">

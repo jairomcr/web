@@ -1,20 +1,20 @@
 <div class="col">
-    <div class="card bg-dark border-b-white mb-0">
+    <div class="card  border-b-white mb-0 mt-2">
         <div class="card-body row row-cols-2 p-1" x-data="{ editing: false, name: '{{ $tag->name }}' }">
             <div class="col-9 pt-1">
                 <input id="tag-name" x-ref="tag" x-show="editing" @keyup.enter="editing = false; $wire.save(name)"  style="height: 90%; font-size: 1.5" class="form-control" x-model="name">
                 <b x-show="!editing" class="h6 ml-2">{{ $tag->name }}</b>
             </div>
             
-            <div class="btn-group absolute left-0 col-3" style="height: 39px; margin-bottom: auto;">
-                <button class="btn btn-primary" x-show="!editing" @click="editing = true; $refs.tag.focus()">
-                    <span class="fas fa-edit" ></span>
+            <div class="col-3 d-flex justify-content-end align-items-center" style="height: 39px;">
+                <button class="btn btn-secondary" x-show="!editing" @click="editing = true; $refs.tag.focus()">
+                    <span class="fas fa-ms fa-edit" ></span>
                 </button>
-                <button class="btn btn-primary" x-show="editing" @click="editing = false; $wire.save(name)">
-                    <span class="fas fa-check" ></span>
+                <button class="btn btn-xs btn-default text-secondary mx-1 shadow edit-button" x-show="editing" @click="editing = false; $wire.save(name)">
+                    <i class="fa fa-ms fa-fw fa-pen"></i>
                 </button>
-                <button class="btn btn-danger" wire:click="delete">
-                    <span class="fas fa-trash"></span>
+                <button class="btn  btn-default text-danger mx-1 shadow edit-button" wire:click="delete">
+                    <span class="fas fa-lg fa-fw fa-trash"></span>
                 </button>
             </div>
         </div>

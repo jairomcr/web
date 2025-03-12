@@ -70,12 +70,17 @@ class ProductService
 
     public function latest()
     {
-        return Product::latest('id');
+        return Product::latest();
     }
 
     public function latest_active(int $per_page)
     {
-        return Product::where('status', 2)->latest('id')->paginate($per_page);
+        return Product::where('status', 2)->latest()->paginate($per_page);
+    }
+
+    public function latest_active_all()
+    {
+        return Product::where('status', 2)->latest();
     }
 
 

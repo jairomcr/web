@@ -1,5 +1,5 @@
 <div>
-    <a wire:click="$set('open', true)" class="btn btn-xs btn-default text-primary mx-1 shadow edit-button">
+    <a wire:click="$set('open', true)" class="btn btn-xs btn-default text-secondary mx-1 shadow edit-button">
         <i class="fa fa-lg fa-fw fa-pen"></i>
     </a>
 

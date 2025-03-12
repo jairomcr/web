@@ -20,17 +20,17 @@
                 <div class="row">
                     <div class="col-lg-10 entries">
 
-                        @forelse ($products->paginate(3) as $product)
-                                            @include('front-end.components.product', [
-                                                'product' => $product
-                                            ])
+                        @forelse ($products as $product)
+                            @include('front-end.components.product', [
+                                'product' => $product
+                            ])
                         @empty
                             <h1>No hay productos nuevos por ahora...</h1>
                         @endforelse
                     </div><!-- End blog entries list -->
                 </div>
                 <div class="blog-pagination">
-                    {{ $products->paginate(3)->links() }}
+                    {{ $products->links() }}
                 </div>
             </div>
         </section><!-- End Blog Section -->

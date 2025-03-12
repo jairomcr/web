@@ -13,12 +13,13 @@ class SettingsIndex extends Component
     use WithFileUploads;
 
     public $name, $title, $subtitle, $email;
-    public $logo, $video, $phone, $description;
+    public $logo, $video, $phone, $description,$image;
     public $extract, $executives = [], $socialLinks = [];
     public $newExecutive = ['name' => '', 'position' => '', 'photo' => null,];
     public $logoUrl;
     public $videoUrl;
     public $settingId;
+    public $imagePath;
     public $showExecutiveForm = false;
 
     public function mount()
@@ -42,6 +43,7 @@ class SettingsIndex extends Component
             $this->logoUrl = $settings->logo ? Storage::url($settings->logo) : null;
             $this->videoUrl = $settings->video ? Storage::url($settings->video) : null;
             $this->extract = $settings->extract;
+            $this->imagePath = $settings->image ? Storage::url($settings->image) : null;
         }
     }
     public function addExecutive()
@@ -65,7 +67,7 @@ class SettingsIndex extends Component
             'photo' => $photoPath ? 'executives/' . $filename : null, // Guarda la ruta relativa en la DB
         ];
 
-        // $this->countExecutives ++;
+        $this->resetNewExecutive();
     }
     public function removeExecutive($index)
     {
@@ -82,7 +84,8 @@ class SettingsIndex extends Component
             'logo' => 'required|image|max:1024',
             'extract' => 'required|string',
             'phone' => 'required|digits_between:1,20',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255',    
+            'imag'=> 'nullable|image',
             'description' => 'required|string',
             'video' => 'nullable|mimetypes:video/mp4,video/avi,video/mpeg,video/quicktime|max:512000|not_in:forbidden_video.mp4',
         ]);
@@ -100,6 +103,10 @@ class SettingsIndex extends Component
                 'executives' => $this->executives,
             ];
 
+            if ($this->image) {
+                $data['image'] = $this->image->store('image', 'public');
+                $this->imagePath = Storage::url($data['image']);
+            }
             // Guardar el logo si se ha subido
             if ($this->logo) {
                 $data['logo'] = $this->logo->store('logos', 'public');
@@ -143,7 +150,7 @@ class SettingsIndex extends Component
     }
     private function resetForm()
     {
-        $this->reset(['name','logo','title','subtitle','executives','socialLinks','phone','email','description','video','settingId','newExecutive']);
+        $this->reset(['name','logo','title','subtitle','executives','socialLinks','phone','email','description','imagePath','video','settingId','newExecutive']);
     }
     public function render()
     {

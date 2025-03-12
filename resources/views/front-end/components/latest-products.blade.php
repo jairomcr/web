@@ -9,7 +9,7 @@
 
             <div class="row portfolio-container aos-init aos-animate" data-aos="fade-up" data-aos-delay="200"
                 style="position: relative; height: 1251px;">
-                @foreach ($products as $product)
+                @foreach ($latest_products as $product)
                     <div class="col-lg-4 col-md-6 portfolio-item filter-app"
                         style="position: absolute; left: 0px; top: 0px;">
                         <img src="{{ asset('storage/' . $product->image->url) }}" class="img-fluid" alt="">
@@ -21,7 +21,7 @@
                                     class="portfolio-lightbox preview-link" title="{{ $product->name }}">
                                     <i class="bx bx-plus"></i>
                                 </a>
-                                <a href="{{  route('products.detail', ['product' => $product->slug]) }}"
+                                <a href="{{  route('products.detail', ['product' => $product->id]) }}"
                                     class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                             </div>
                         </div>

@@ -9,10 +9,11 @@
     <div class="d-flex flex-column flex-md-row align-items-center mb-3">
         <!-- Botón -->
         <div class="col mb-md-0 me-md-3 mb-2">
-            <!-- Margen inferior en móviles y margen derecho en desktop -->
-            <button wire:click="toggleCreateForm" class="btn btn-primary btn-sm" style="width: 150px; height: 40px;">
-                {{ $isCreating ? 'Listado Artículos' : 'Crear Nuevo Artículos' }}
-            </button>
+            @can('admin.posts.index')
+                <button wire:click="toggleCreateForm" class="btn btn-secondary btn-sm" style="width: 150px; height: 40px;">
+                    {{ $isCreating ? 'Listado Artículos' : 'Crear Nuevo Artículos' }}
+                </button>
+            @endcan
         </div>
     
         <!-- Input con ícono de búsqueda -->
@@ -206,14 +207,14 @@
 
                             {{-- Edit and delete buttons --}}
                             <div class="d-flex justify-content-end mt-3">
-                                <button wire:click="editPost({{ $post->id }})"
-                                    class="btn- btn-primary btn-sm mr-2">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button wire:click="dispatch('deletePost',{ postId : {{$post->id}}})"
-                                    class="btn- btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                @can('admin.posts.index')
+                                    <button wire:click="editPost({{ $post->id }})" class="btn- btn-secondary btn-sm mr-2">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button wire:click="dispatch('deletePost',{ postId : {{$post->id}}})" class="btn- btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                @endcan  
                             </div>
                         </div>
                     </div>

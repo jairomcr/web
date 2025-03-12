@@ -1,5 +1,5 @@
 <div>
-    <button class="btn btn-primary" wire:click="$set('open',true)">Agregar</button>
+    <button class="btn btn-secondary" wire:click="$set('open',true)">Agregar</button>
 
     @if($open)
         <div class="modal fade show" tabindex="-1" style="display: block;">

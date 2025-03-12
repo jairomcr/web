@@ -3,9 +3,11 @@
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="col">
-                    @livewire('admin.categories-create')
+                    @can('admin.categories.index')
+                        @livewire('admin.categories-create')
+                    @endcan
                 </div>
-                <div class="col">
+                <div class="col-md-10">
                     <div class="input-group">
                         <input wire:model.live="search" class="form-control"
                             placeholder="Ingrese el nombre de la categoria....">
@@ -71,12 +73,17 @@
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->slug }}</td>
                         <td width="10px">
-                            @livewire('admin.categories-edit', ['category' => $category], key( $category->id))
+                            @can('admin.categories.index')
+                                @livewire('admin.categories-edit', ['category' => $category], key( $category->id))
+                            @endcan
                         </td>
                         <td width="10px">
-                            <a wire:click="dispatch('deleteCategory',{ categoryId : {{$category->id}}})" class="btn btn-xs btn-default text-danger mx-1 shadow edit-button">
-                                <i class="fa fa-lg fa-fw fa-trash"></i>
-                            </a>
+                            @can('admin.categories.index')
+                                <a wire:click="dispatch('deleteCategory',{ categoryId : {{$category->id}}})"
+                                    class="btn btn-xs btn-default text-danger mx-1 shadow edit-button">
+                                    <i class="fa fa-lg fa-fw fa-trash"></i>
+                                </a>
+                            @endcan 
                         </td>
                     </tr>
                     @endforeach

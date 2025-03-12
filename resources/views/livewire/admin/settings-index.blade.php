@@ -60,13 +60,30 @@
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-12 col-sm-6">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label>No. Teléfono:</label>
                         <input type="text" class="form-control" wire:model="phone" placeholder="Introduce el número de teléfono">
                         @error('phone')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
+                    </div>
+                    <!-- /.form-group -->
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Imagen de Fondo:</label>
+                        <input type="file"  class="form-control mb-2" wire:model="image"  accept="image/*">
+                        @error('image')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        @if ($imagePath && !$image)
+                            <img src="{{ $imagePath }}" alt="Image" style="max-width: 200px;">
+                        @elseif ($image)
+                            <div class="mt-2">
+                                <img src="{{ $image->temporaryUrl() }}" alt="Imagen seleccionada" class="img-fluid" style="max-width: 200px;">
+                            </div>
+                        @endif
                     </div>
                     <!-- /.form-group -->
                 </div>
@@ -130,7 +147,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div>
-                            <button class="btn btn-primary" type="button" wire:click="$toggle('showExecutiveForm')">
+                            <button class="btn btn-secondary" type="button" wire:click="$toggle('showExecutiveForm')">
                                 {{ $showExecutiveForm ? 'Ocultar Ejecutivos' : 'Ver Ejecutivos' }}
                             </button>
                         </div>
@@ -151,11 +168,11 @@
                         
                             <div>
                                 <label for="executivePhoto">Foto:</label>
-                                <input type="file" class="form-control mb-3" id="executivePhoto" wire:model="newExecutive.photo">
+                                <input type="file" class="form-control mb-3" id="executivePhoto" wire:model="newExecutive.photo" accept="image/*">
                                 @error('newExecutive.photo') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         
-                            <button type="button" class="btn btn-primary" wire:click="addExecutive">Agregar</button>
+                            <button type="button" class="btn btn-secondary" wire:click="addExecutive">Agregar</button>
                         </div>
                         @endif
                     </div>
@@ -205,7 +222,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Descripción:</label>
-                        <x-adminlte-textarea class="form-control" name="taBasic" wire:model="description" placeholder="Inserta una descripción..." />
+                        <x-adminlte-textarea class="form-control" rows="5" name="taBasic" wire:model="description" placeholder="Inserta una descripción..." />
                         @error('description')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -216,7 +233,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Extracto:</label>
-                        <x-adminlte-textarea class="form-control" name="taBasic" wire:model="extract" placeholder="Inserta un extracto..." />
+                        <x-adminlte-textarea class="form-control" rows="5" name="taBasic" wire:model="extract" placeholder="Inserta un extracto..." />
                         @error('extract')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -225,10 +242,12 @@
             </div>
             <div class="row">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                    @if ($settingId)
-                     <button type="button" class="btn btn-danger" wire:click="delete">Eliminar</button>
-                    @endif
+                    @can('admin.settings.index')
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        @if ($settingId)
+                        <button type="button" class="btn btn-danger" wire:click="delete">Eliminar</button>
+                        @endif
+                    @endcan   
                 </div>
             </div>
         </div>

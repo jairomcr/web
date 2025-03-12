@@ -1,6 +1,8 @@
 <div>
     <div class="row container-fluid">
-        <button class="btn btn-primary col-sm-2 mr-2" wire:click="toggleCreateModal">Nuevo</button>
+        @can('admin.products.index')
+            <button class="btn btn-secondary col-sm-2 mr-2 mb-2" wire:click="toggleCreateModal">Nuevo</button>
+        @endcan     
         <input id="search" name="search" value="" class="form-control col" type="text" placeholder="Buscar producto"
             wire:model.live="currentSearchProduct">
     </div>

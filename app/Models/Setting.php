@@ -18,6 +18,7 @@ class Setting extends Model
         'social_links',
         'phone',
         'email',
+        'image',
         'description',
     ];
 

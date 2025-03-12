@@ -324,17 +324,25 @@ return [
             'text' => 'Dashboard',
             'route' => 'admin.home',
             'icon' => 'fas fa-tachometer-alt fa-fw',
+            'can'   => 'admin.home',
         ],
         [
             'text' => 'Usuarios',
             'route' => 'admin.users.index',
             'icon' => 'fas fa-users fa-fw',
+            'can'  => 'admin.users.index',
+        ],
+        [
+            'text' => 'Roles',
+            'route' => 'admin.roles.index',
+            'icon' => 'fas fa-users-cog fa-fw',
         ],
         ['header' => 'Administrador'],
         [
             'text' => 'Categorías',
             'route' => 'admin.categories.index',
             'icon' => 'fab fa-fw fa-buffer',
+            'can'  => 'admin.categories.index',
         ],
         /* [
             'text' => 'multilevel',
@@ -384,16 +392,19 @@ return [
             'text' => 'Productos',
             'route' => 'admin.products.index',
             'icon' => 'fas fa-fw fa-clipboard',
+            'can'  => 'admin.products.index',
         ],
         [
             'text' => 'Tags',
             'route' => 'admin.tags.index',
-            'icon' => 'fas fa-fw fa-clipboard',
+            'icon' => 'fas fa-fw fa-bookmark',
+            'can'  => 'admin.tags.index',
         ],
         [
             'text' => 'Configuración',
             'route' => 'admin.settings.index',
             'icon' => 'fas fa-fw fa-cog',
+            'can'  => 'admin.settings.index',
         ],
     ],
 

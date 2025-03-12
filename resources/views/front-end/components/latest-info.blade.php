@@ -12,8 +12,10 @@
             <div class="icon-box mt-4 mt-xl-0">
                 <i class="bx bx-receipt"></i>
                 <div class="badge bg-warning">Post reciente</div>
-                <h4>{{ $last_post->name }}</h4>
-                <p>{{ $last_post->extract }}</p>
+                @if($last_post != null)
+                    <h4>{{ $last_post->name }}</h4>
+                    <p>{{ $last_post->extract }}</p>
+                @endif
             </div>
         </div>
 
@@ -22,8 +24,10 @@
             <div class="icon-box mt-4 mt-xl-0">
                 <i class="bx bx-cube-alt"></i>
                 <div class="badge bg-warning">Nuevo Producto</div>
-                <h4>{{ $last_product->name }}</h4>
-                <p>{{ $last_product->info }}</p>
+                @if($last_product != null)
+                    <h4>{{ $last_product->name }}</h4>
+                    <p>{{ $last_product->info }}</p>
+                @endif
             </div>
         </div>
     </div>

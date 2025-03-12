@@ -4,17 +4,21 @@ namespace App\Livewire\Admin;
 
 use App\Models\User;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 class UsersEdit extends Component
 {
     public $open = false;
     public $user,$userName,$userEmail;
+    public $userRole = [];
+    public $userId;
+    public $roles;
 
     protected function rules()
     {
         return [
             'userName' => 'required|min:3',
-            'userEmail' => 'required|unique:users,email,' . ($this->user->id ?? 'NULL'),
+            'userEmail' => 'required|unique:users,email,' . ($this->userId ?? 'NULL'),
         ];
     }
     protected function messages()
@@ -27,29 +31,47 @@ class UsersEdit extends Component
         ];
     }
 
-    public function mount(User $user)
+    public function mount($userId)
     {
-        $this->user = $user;
-        $this->userName = $user->name;
-        $this->userEmail = $user->email;
+        $this->userId = $userId;
+        // Carga el usuario que se va a editar
+        $user = User::find($this->userId);
+
+        if ($user) {
+            $this->userName = $user->name;
+            $this->userEmail = $user->email;
+            $this->userRole = $user->roles()->pluck('name')->toArray();
+        } else {
+            session()->flash('error', 'Usuario no encontrado.');
+            $this->closeModal();
+        }
+
+        // Carga la lista de roles disponibles
+        $this->roles = Role::all();
+
     }
     public function save()
     {
         $this->validate();
 
-        // Actualiza las propiedades de la usuario
-        $this->user->name = $this->userName;
-        $this->user->email = $this->userEmail;
+        $user = User::find($this->userId);
 
-        // Guarda la categoría
-        $this->user->save();
+        if ($user) {
+            // Actualiza las propiedades de la usuario
+            $user->name = $this->userName;
+            $user->email = $this->userEmail;
+            $user->syncRoles($this->userRole);
 
-        // Reset the fields
-        $this->reset(['open']);
+            // Guarda la user
+            $user->save();
 
-        //Broadcast events
-        $this->dispatch('refresh');
-        $this->dispatch('alert', 'Sea  actualizado la usuario correctamente');
+            $this->closeModal();
+
+            //Broadcast events
+            $this->dispatch('refresh');
+            $this->dispatch('alert', 'Sea  actualizado la usuario correctamente');
+        } 
+        
     }
     public function closeModal()
     {
@@ -61,6 +83,6 @@ class UsersEdit extends Component
 
     public function render()
     {
-        return view('livewire.admin.users-edit');
+        return view('livewire.admin.users-edit',);
     }
 }

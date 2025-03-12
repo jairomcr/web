@@ -31,13 +31,17 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td width="10px">
-                               @livewire('admin.users-edit', ['user' => $user], key( $user->id))
+                                @can('admin.users.index')
+                                    @livewire('admin.users-edit', ['userId' => $user->id], key( $user->id))
+                                @endcan   
                             </td>
                             <td width="10px">
-                                <a wire:click="dispatch('deleteUser',{ userId : {{$user->id}}})"
+                                @can('admin.users.index')
+                                    <a wire:click="dispatch('deleteUser',{ userId : {{$user->id}}})"
                                         class="btn btn-xs btn-default text-danger mx-1 shadow edit-button">
                                         <i class="fa fa-lg fa-fw fa-trash"></i>
-                                </a>
+                                    </a>    
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

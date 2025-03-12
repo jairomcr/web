@@ -30,7 +30,24 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-
+                    <div class="mb-3">
+                        <label class="col-form-label">Roles:</label>
+                        <div>
+                            @foreach($roles as $role)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{ $role->name }}" id="role_{{ $role->id }}"
+                                    wire:model="userRole">
+                                <label class="form-check-label" for="role_{{ $role->id }}">
+                                    {{ $role->name }}
+                                </label>
+                            </div>
+                            @endforeach
+                        </div>
+                    
+                        @error('userRole')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click="closeModal">Cerrar</button>
