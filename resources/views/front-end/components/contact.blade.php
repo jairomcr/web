@@ -13,23 +13,23 @@
             <div class="col-xl-3 col-lg-4 mt-4" data-aos="fade-up">
                 <div class="info-box">
                     <i class="bx bx-map"></i>
-                    <h3>Our Address</h3>
-                    <p>A108 Adam Street, New York, NY 535022</p>
+                    <h3>Dirección</h3>
+                    <p>{{$settings->address ?? 'A108 Adam Street, New York, NY 535022'}}</p>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4 mt-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-xl-3 col-lg-8 mt-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="info-box">
                     <i class="bx bx-envelope"></i>
-                    <h3>Email Us</h3>
-                    <p>info@example.com<br>contact@example.com</p>
+                    <h3>Correo</h3>
+                    <p style="word-wrap: break-word;overflow-wrap: break-word;white-space: normal;">{{$settings->email ?? 'info@example.com'}}</p>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 mt-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="info-box">
                     <i class="bx bx-phone-call"></i>
                     <h3>Call Us</h3>
-                    <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+                    <p  >{{$settings->phone ?? '+1 5589 55488 55'}}</p>
                 </div>
             </div>
         </div>

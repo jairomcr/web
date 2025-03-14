@@ -27,16 +27,19 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <div class="portfolio-info row">
-                        <b class="h4 col-12"><i>{{ $product->price }} CUP</i></b>
-                        <b class="h5 col-12">Publicado por `<i>{{ $product->user->name }}</i>`</b>
+                    <div class="portfolio-info">
+                        <h3>Información del Producto</h3>
+                        <ul>
+                            <li><strong>Precio</strong>: {{ $product->price }}</li>
+                            <li><strong>Publicado</strong>: {{ $product->user->name }}</li>
+                        </ul>
                     </div>
-                </div>
-                <div class="portfolio-description">
-                    <h2>{{ $product->info }}</h2>
-                    <p>
-                        {{ $product->desc }}
-                    </p>
+                    <div class="portfolio-description">
+                        <h2>{{ $product->info }}</h2>
+                        <p>
+                            {{ $product->desc }}
+                        </p>
+                    </div>
                 </div>
             </div>
 
@@ -44,7 +47,7 @@
 
         </div>
     </section><!-- End Portfolio Details Section -->
-
+  
 </main>
 <!-- END PRODUCT DETAIL -->
 @endsection

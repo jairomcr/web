@@ -9,11 +9,11 @@ use Laravel\Jetstream\Rules\Role;
 
 //Routes frontend
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('posts/{post}', [HomeController::class, 'show'])->name('posts.show');
-Route::get('category/{category}', [HomeController::class, 'category'])->name('posts.category');
+Route::get('posts/{post:slug}', [HomeController::class, 'show'])->name('posts.show');
+Route::get('category/{category:slug}', [HomeController::class, 'category'])->name('posts.category');
 Route::get('tag/{tag}', [HomeController::class, 'tag'])->name('posts.tag');
 Route::get('products', [HomeController::class, 'product_list'])->name('products.show');
-Route::get('products/{product}/detail', [HomeController::class, 'product_detail'])->name('products.detail');
+Route::get('products/{product:slug}/detail', [HomeController::class, 'product_detail'])->name('products.detail');
 
 // Rutas de autenticación de AdminLTE
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password-request');

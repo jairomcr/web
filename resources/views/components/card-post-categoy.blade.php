@@ -11,7 +11,7 @@
     </div>
 
     <h2 class="entry-title">
-        <a href="{{ route('posts.show', $post) }}">{{$post->name}}</a>
+        <a href="{{ route('posts.show', ['post' => $post->slug]) }}">{{$post->name}}</a>
     </h2>
     <div class="entry-meta">
         <ul>
@@ -28,7 +28,7 @@
             {{$post->extract}}
         </p>
         <div class="read-more">
-            <a href="{{ route('posts.show', $post) }}">Leer más</a>
+            <a href="{{ route('posts.show', ['post' => $post->slug]) }}">Leer más</a>
         </div>
     </div>
 

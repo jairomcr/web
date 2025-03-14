@@ -11,7 +11,66 @@ use Illuminate\Support\Facades\Storage;
 
 class PostService
 {
-    
+    protected $settingService;
+    protected $productService;
+
+    public function __construct()
+    {
+        $this->settingService = app(SettingService::class);
+        $this->productService = app(ProductService::class);
+    }
+    public function getIndexData(): array
+    {
+        $posts = $this->getActivePosts(4);
+        $settingData = $this->settingService->getAllSettings();
+
+        return [
+            'pageTitle' => 'Web Services',
+            'posts' => $posts,
+            'settings' => $settingData,
+            'latest_products' => $this->productService->latest_active_all()->take(6)->get(),
+            'last_product' => $this->productService->latest_active_all()->first(),
+            'last_post' => $this->getLatestPost(),
+        ];
+    }
+    public function getShowData(Post $post): array
+    {
+        $similares = $this->getSimilarPosts($post);
+
+        return [
+            'pageTitle' => 'Web Services - Article',
+            'title' => 'Artículos',
+            'post' => $post,
+            'similares' => $similares,
+        ];
+    }
+    public function getCategoryData(Category $category): array
+    {
+        $posts = $this->getPostsByCategory($category);
+
+        return [
+            'pageTitle' => 'Web Services - ' . $category->name,
+            'posts' => $posts,
+            'category' => $category,
+        ];
+    }
+    public function getTagData(Tag $tag): array
+    {
+        $posts = $this->getPostsByTag($tag);
+
+        return [
+            'pageTitle' => 'Web Services - ' . $tag->name,
+            'posts' => $posts,
+            'tag' => $tag,
+        ];
+    }
+    protected function getActivePosts(int $perPage)
+    {
+        return Post::with(['image', 'tags', 'user'])
+            ->where('status', 2)
+            ->latest('id')
+            ->paginate($perPage);
+    }
     public function getCategories()
     {
         return Category::pluck('name', 'id');

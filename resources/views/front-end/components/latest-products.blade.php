@@ -21,7 +21,7 @@
                                     class="portfolio-lightbox preview-link" title="{{ $product->name }}">
                                     <i class="bx bx-plus"></i>
                                 </a>
-                                <a href="{{  route('products.detail', ['product' => $product->id]) }}"
+                                <a href="{{  route('products.detail', ['product' => $product->slug]) }}"
                                     class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                             </div>
                         </div>

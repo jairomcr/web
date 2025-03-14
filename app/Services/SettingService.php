@@ -16,7 +16,7 @@ class SettingService
 
     public function getAllSettings()
     {
-        $settingData = Setting::get()->first();
+        $settingData = Setting::first();
 
         return $settingData;
     }

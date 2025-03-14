@@ -1,11 +1,20 @@
 @extends('layouts.master')
-
+@section('stylescss')
+    <style>
+        #hero {
+            background: url("{{  asset('storage/'.($settings->image ?? 'image/default.jpg')) }}") center center;
+        }  
+        .about .video-box {
+         background: url("{{ asset('storage/'.($settings->video_img ?? '../img/about-img.jpg')) }}") center center no-repeat;
+        }    
+    </style>
+@endsection
 @section('content')
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
         <div class="container" data-aos="fade-in">
-            <h1>Welcome to Flexor</h1>
-            <h2>We are team of talented designers making websites with Bootstrap</h2>
+            <h1><?= $settings->name ?? 'Welcome to Flexor' ?></h1>
+            <h2><?= $settings->phrase ?? 'We are team of talented designers making websites with Bootstrap' ?></h2>
             <div class="d-flex align-items-center">
                 <i class="bx bxs-right-arrow-alt get-started-icon"></i>
                 <a href="#about" class="btn-get-started scrollto">Empezar</a>

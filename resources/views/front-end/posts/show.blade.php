@@ -32,7 +32,7 @@
                             @else 
                                 {{ asset('assets/img/blog/blog-recent-4.jpg') }}
                             @endif 
-                            <h4><a href="{{ route('posts.show', $similar) }}">{{$similar->name}}</a></h4>
+                            <h4><a href="{{ route('posts.show', ['post' => $similar->slug]) }}">{{$similar->name}}</a></h4>
                         </div>
                         @endforeach
                     </div><!-- End sidebar recent posts-->

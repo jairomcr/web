@@ -62,6 +62,29 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
+                        <label>Dirección:</label>
+                        <input type="text" class="form-control" wire:model="address" placeholder="Introduce la dirección...">
+                        @error('address')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <!-- /.form-group -->
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Frase:</label>
+                        <input type="text" class="form-control" wire:model="phrase" placeholder="Introduce una frase...">
+                        @error('phrase')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <!-- /.form-group -->
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
                         <label>No. Teléfono:</label>
                         <input type="text" class="form-control" wire:model="phone" placeholder="Introduce el número de teléfono">
                         @error('phone')
@@ -90,7 +113,7 @@
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-12 col-sm-6">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label>Logo:</label>
                         <input type="file" class="form-control mb-2" wire:model="logo" accept="image/*">
@@ -103,6 +126,20 @@
                            <div class="mt-2">
                              <img src="{{ $logo->temporaryUrl() }}" alt="Imagen seleccionada"  class="img-fluid" style="max-width: 200px;">
                            </div>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen relacinada al video:</label>
+                        <input type="file" class="form-control mb-2" wire:model="video_img" accept="image/*">
+                        @error('video_img')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        @if ($videoPath && !$video_img)
+                        <img src="{{ $videoPath }}" alt="Logo" style="max-width: 200px;">
+                        @elseif ($video_img)
+                        <div class="mt-2">
+                            <img src="{{ $video_img->temporaryUrl() }}" alt="Imagen seleccionada" class="img-fluid" style="max-width: 200px;">
+                        </div>
                         @endif
                     </div>
                     <!-- /.form-group -->

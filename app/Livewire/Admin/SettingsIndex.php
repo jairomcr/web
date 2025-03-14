@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Admin;
 
+use App\Http\Requests\SettingsRequest;
 use App\Models\Setting;
+use App\Services\SettingService;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -13,27 +15,46 @@ class SettingsIndex extends Component
     use WithFileUploads;
 
     public $name, $title, $subtitle, $email;
-    public $logo, $video, $phone, $description,$image;
+    public $logo, $video, $phone, $description,$image, $address, $phrase, $video_img;
     public $extract, $executives = [], $socialLinks = [];
     public $newExecutive = ['name' => '', 'position' => '', 'photo' => null,];
     public $logoUrl;
     public $videoUrl;
+    public $videoPath;
     public $settingId;
     public $imagePath;
     public $showExecutiveForm = false;
 
+    protected $settingService;
+    
+
+    public function __construct()
+    {
+        $this->settingService = new SettingService;
+    }
+    protected function rules(){
+        $settingsRequest = new SettingsRequest();
+        return $settingsRequest->rules();
+    }
+    protected function messages()
+    {
+        $settingsRequest = new SettingsRequest();
+        return $settingsRequest->messages();
+    }
     public function mount()
     {
         $this->loadSettings();
     }
     private function loadSettings()
     {
-        $settings = Setting::first();
+        $settings = $this->settingService->getAllSettings();
         if ($settings) {
             $this->settingId = $settings->id;
             $this->name = $settings->name;
             $this->title = $settings->title;
             $this->subtitle = $settings->subtitle;
+            $this->address = $settings->address;
+            $this->phrase = $settings->phrase;
             $this->phone = $settings->phone;
             $this->email = $settings->email;
             $this->extract = $settings->extract;
@@ -44,6 +65,7 @@ class SettingsIndex extends Component
             $this->videoUrl = $settings->video ? Storage::url($settings->video) : null;
             $this->extract = $settings->extract;
             $this->imagePath = $settings->image ? Storage::url($settings->image) : null;
+            $this->videoPath = $settings->video_img ? Storage::url($settings->video_img) : null;
         }
     }
     public function addExecutive()
@@ -77,24 +99,15 @@ class SettingsIndex extends Component
     public function save()
     {
         // Validar los datos generales
-        $this->validate([
-            'name' => 'required|string|max:255',
-            'title' => 'required|string|max:255',
-            'subtitle' => 'required|string|max:255',
-            'logo' => 'required|image|max:1024',
-            'extract' => 'required|string',
-            'phone' => 'required|digits_between:1,20',
-            'email' => 'required|email|max:255',    
-            'imag'=> 'nullable|image',
-            'description' => 'required|string',
-            'video' => 'nullable|mimetypes:video/mp4,video/avi,video/mpeg,video/quicktime|max:512000|not_in:forbidden_video.mp4',
-        ]);
+        $this->validate();
 
         try {
             $data = [
                 'name' => $this->name,
                 'title' => $this->title,
                 'subtitle' => $this->subtitle,
+                'address'=> $this->address,
+                'phrase' => $this->phrase,
                 'extract' => $this->extract,
                 'social_links' => $this->socialLinks,
                 'phone' => $this->phone,
@@ -106,6 +119,10 @@ class SettingsIndex extends Component
             if ($this->image) {
                 $data['image'] = $this->image->store('image', 'public');
                 $this->imagePath = Storage::url($data['image']);
+            }
+            if (isset($this->video_img)) {
+                $data['video_img'] = $this->video_img->store('video-img', 'public');
+                $this->videoPath = Storage::url($data['video_img']);
             }
             // Guardar el logo si se ha subido
             if ($this->logo) {

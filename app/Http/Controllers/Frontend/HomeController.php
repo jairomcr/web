@@ -9,76 +9,39 @@ use App\Models\Product;
 use App\Models\Tag;
 use App\Services\PostService;
 use App\Services\ProductService;
-use App\Services\SettingService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
    
-    protected $postServices;
-    protected $productService;
-    protected $settingService;
+    protected $postService;
+    
 
-    public function __construct()
+    public function __construct(PostService $postService)
     {
-        $this->postServices = app(PostService::class);
-        $this->productService = app(ProductService::class);
-        $this->settingService = app(SettingService::class);
+        $this->postService = $postService;
     }
 
     public function index()
     {
-        $posts = $this->postServices->getPaginatedPost(4);
-        $settingData = $this->settingService->getAllSettings();
-
-        $data = [
-            'pageTitle' => 'Web Serveces',
-            'posts' => $posts,
-            'settings' => $settingData,
-            'latest_products' => $this->productService->latest_active_all()->take(6)->get(),
-            'last_product' => $this->productService->latest_active_all()->first(),
-            'last_post' => $this->postServices->getLatestPost(),
-        ];
-
+        $data = $this->postService->getIndexData();
         return view('front-end.index', $data);
     }
     public function show(Post $post)
     {
-        $similares = $this->postServices->getSimilarPosts($post);
-
-        $data = [
-            'pageTitle' => 'Web Serveces-article',
-            'title' => 'Arcticulos',
-            'post' => $post,
-            'similares' => $similares,
-        ];
-
+        $data = $this->postService->getShowData($post);
         return view('front-end.posts.show', $data);
     }
     public function category(Category $category)
     {
-        
-        $posts = $this->postServices->getPostsByCategory($category); 
-        $data = [
-            'pageTitle' => 'Web Serveces-' . $category->name,
-            'posts' => $posts,
-            'category' => $category,
-            
-        ];
 
+        $data = $this->postService->getCategoryData($category);
         return view('front-end.posts.category', $data);
     }
     public function tag(Tag $tag)
     {
-        
-        $posts = $this->postServices->getPostsByTag($tag);
 
-        $data = [
-            'pageTitle' => 'Web Serveces-' . $tag->name,
-            'posts' => $posts,
-            
-            'tag' => $tag
-        ];
+        $data = $this->postService->getTagData($tag);
 
         return view('front-end.posts.tag', $data);
     }
