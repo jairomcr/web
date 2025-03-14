@@ -3,7 +3,7 @@
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="col">
-                    @can('admin.categories.index')
+                    @can('admin.categories.create')
                         @livewire('admin.categories-create')
                     @endcan
                 </div>
@@ -73,12 +73,12 @@
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->slug }}</td>
                         <td width="10px">
-                            @can('admin.categories.index')
+                            @can('admin.categories.edit')
                                 @livewire('admin.categories-edit', ['category' => $category], key( $category->id))
                             @endcan
                         </td>
                         <td width="10px">
-                            @can('admin.categories.index')
+                            @can('admin.categories.destroy')
                                 <a wire:click="dispatch('deleteCategory',{ categoryId : {{$category->id}}})"
                                     class="btn btn-xs btn-default text-danger mx-1 shadow edit-button">
                                     <i class="fa fa-lg fa-fw fa-trash"></i>

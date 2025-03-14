@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\User;
+
+use App\Services\UserService;
 use Livewire\Component;
-use Spatie\Permission\Models\Role;
+
 
 class UsersEdit extends Component
 {
@@ -13,6 +14,7 @@ class UsersEdit extends Component
     public $userRole = [];
     public $userId;
     public $roles;
+    protected $userService;
 
     protected function rules()
     {
@@ -30,12 +32,17 @@ class UsersEdit extends Component
             'userEmail.unique' => 'El correo ya está en uso. Por favor, elige otro.',
         ];
     }
+    
+    public function __construct()
+    {
+        $this->userService = new UserService();
+    }
 
     public function mount($userId)
     {
         $this->userId = $userId;
         // Carga el usuario que se va a editar
-        $user = User::find($this->userId);
+        $user = $this->userService->getUserById($this->userId);
 
         if ($user) {
             $this->userName = $user->name;
@@ -47,30 +54,25 @@ class UsersEdit extends Component
         }
 
         // Carga la lista de roles disponibles
-        $this->roles = Role::all();
+        $this->roles = $this->userService->getAllRoles();
 
     }
     public function save()
     {
         $this->validate();
 
-        $user = User::find($this->userId);
+        $this->userService->updateUser(
+            $this->userId,
+            $this->userName,
+            $this->userEmail,
+            $this->userRole
+        );
 
-        if ($user) {
-            // Actualiza las propiedades de la usuario
-            $user->name = $this->userName;
-            $user->email = $this->userEmail;
-            $user->syncRoles($this->userRole);
+        $this->closeModal();
 
-            // Guarda la user
-            $user->save();
-
-            $this->closeModal();
-
-            //Broadcast events
-            $this->dispatch('refresh');
-            $this->dispatch('alert', 'Sea  actualizado la usuario correctamente');
-        } 
+        //Broadcast events
+        $this->dispatch('refresh');
+        $this->dispatch('alert', 'Sea  actualizado la usuario correctamente'); 
         
     }
     public function closeModal()

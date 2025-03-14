@@ -2,7 +2,8 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Category;
+
+use App\Services\CategoryService;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,6 +18,12 @@ class CategoriesIndex extends Component
     //public $categories;
   
     protected $listeners = ['refresh' => '$refresh', 'deleted'];
+    protected $categoryService;
+
+    public function __construct()
+    {
+        $this->categoryService = app(CategoryService::class);
+    }
 
     public function updatingSearch() {
         $this->resetPage();
@@ -25,8 +32,7 @@ class CategoriesIndex extends Component
 
     public function render()
     {
-        $categories = Category::where('name','like','%'. $this->search . '%')->orWhere('slug', 'like', '%' . $this->search . '%')->orderBy($this->sort,$this->direction)->paginate(6);
-
+        $categories = $this->categoryService->getPaginationCategories($this->search,$this->sort,$this->direction);
         return view('livewire.admin.categories-index',compact('categories'));
     }
 
@@ -47,14 +53,8 @@ class CategoriesIndex extends Component
     }
     public function deleted($categoryId): void
     {
-        $category = Category::find($categoryId)->first();
-        if ($category) {
-            $category->delete();
-            $this->dispatch('alert', 'Categoría eliminada correctamente.');
-        } else {
-            $this->dispatch('alert', 'Categoría no encontrada.');
-        }
-        
+        $this->categoryService->deleteCategory($categoryId);
+        $this->dispatch('alert', 'Categoría eliminada correctamente.');
     }
       
 }

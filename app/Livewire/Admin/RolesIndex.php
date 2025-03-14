@@ -3,7 +3,7 @@
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
-use Spatie\Permission\Models\Role;
+use App\Services\RoleService; 
 use Spatie\Permission\Models\Permission;
 
 class RolesIndex extends Component
@@ -27,11 +27,17 @@ class RolesIndex extends Component
         'name.max' => 'El nombre del rol no puede tener más de 255 caracteres.',
         'selectedPermissions.*.exists' => 'Uno o más permisos seleccionados no son válidos.',
     ];
+    protected $roleService;
+
+    public function __construct()
+    {
+        $this->roleService = new RoleService();
+    }
 
     public function mount()
     {
-        $this->roles = Role::with('permissions')->get(); // Eager loading
-        $this->permissions = Permission::all();
+        $this->roles = $this->roleService->getAllRoles();
+        $this->permissions = $this->roleService->getAllPermissions();
     }
 
     public function render()
@@ -44,7 +50,7 @@ class RolesIndex extends Component
         $this->validate();
 
         try {
-            Role::create(['name' => $this->name]);
+            $this->roleService->createRole(['name' => $this->name]);
 
             $this->reset(['name']);
             session()->flash('message', 'Rol creado correctamente.');
@@ -52,12 +58,12 @@ class RolesIndex extends Component
             session()->flash('error', 'Error al crear el rol: ' . $e->getMessage());
         }
 
-        $this->roles = Role::with('permissions')->get();
+        $this->roles = $this->roleService->getAllRoles();
     }
 
     public function editRole($roleId)
     {
-        $role = Role::find($roleId);
+        $role = $this->roleService->getRoleById($roleId);
         $this->name = $role->name;
         $this->selectedRoleId = $roleId;
         $this->selectedPermissions = $role->permissions->pluck('id')->toArray();
@@ -65,7 +71,7 @@ class RolesIndex extends Component
 
     public function updateRole()
     {
-        $role = Role::find($this->selectedRoleId);
+        $role = $this->roleService->getRoleById($this->selectedRoleId);
         $this->rules['name'] = 'required|string|max:255|unique:roles,name,' . $role->id;
         $this->validate();
 
@@ -73,9 +79,10 @@ class RolesIndex extends Component
         $this->selectedPermissions = $existingPermissions;
 
         try {
-            $role = Role::find($this->selectedRoleId);
-            $role->update(['name' => $this->name]);
-            $role->syncPermissions($this->selectedPermissions);
+            $this->roleService->updateRole($this->selectedRoleId, [
+                'name' => $this->name,
+                'selectedPermissions' => $this->selectedPermissions,
+            ]);
 
             $this->reset(['name', 'selectedRoleId', 'selectedPermissions']);
             session()->flash('message', 'Rol actualizado correctamente.');
@@ -83,7 +90,7 @@ class RolesIndex extends Component
             session()->flash('error', 'Error al actualizar el rol: ' . $e->getMessage());
         }
 
-        $this->roles = Role::with('permissions')->get();
+        $this->roles = $this->roleService->getAllRoles();
     }
 
     public function confirmDelete($roleId)
@@ -94,13 +101,13 @@ class RolesIndex extends Component
     public function deleteRole()
     {
         try {
-            Role::find($this->roleIdToDelete)->delete();
+            $this->roleService->deleteRole($this->roleIdToDelete);
             session()->flash('message', 'Rol eliminado correctamente.');
         } catch (\Exception $e) {
             session()->flash('error', 'Error al eliminar el rol: ' . $e->getMessage());
         }
 
-        $this->roles = Role::with('permissions')->get();
+        $this->roles = $this->roleService->getAllRoles();
         $this->roleIdToDelete = null;
     }
 }

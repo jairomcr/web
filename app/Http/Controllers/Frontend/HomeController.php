@@ -7,36 +7,44 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Tag;
+use App\Services\PostService;
 use App\Services\ProductService;
 use App\Services\SettingService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    //protected $paginationTheme = "bootstrap";
+   
+    protected $postServices;
+    protected $productService;
+    protected $settingService;
 
-    public function index(ProductService $productService)
+    public function __construct()
     {
-        $posts = Post::with(['image', 'tags', 'user'])->where('status', 2)->latest('id')->paginate(4);
+        $this->postServices = app(PostService::class);
+        $this->productService = app(ProductService::class);
+        $this->settingService = app(SettingService::class);
+    }
 
-        $settingService = new SettingService();
-        $settingData = $settingService->getAllSettings();
+    public function index()
+    {
+        $posts = $this->postServices->getPaginatedPost(4);
+        $settingData = $this->settingService->getAllSettings();
 
         $data = [
             'pageTitle' => 'Web Serveces',
             'posts' => $posts,
             'settings' => $settingData,
-            'latest_products' => $productService->latest_active_all()->take(6)->get(),
-            'last_product' => $productService->latest_active_all()->first(),
-            'last_post' => Post::where('status', 2)->latest()->first(),
+            'latest_products' => $this->productService->latest_active_all()->take(6)->get(),
+            'last_product' => $this->productService->latest_active_all()->first(),
+            'last_post' => $this->postServices->getLatestPost(),
         ];
 
         return view('front-end.index', $data);
     }
     public function show(Post $post)
     {
-        
-        $similares = Post::where('category_id', $post->category_id)->where('status', 2)->where('id', '!=', $post->id)->latest('id')->take(4)->get(); //Brings all similar posts
+        $similares = $this->postServices->getSimilarPosts($post);
 
         $data = [
             'pageTitle' => 'Web Serveces-article',
@@ -50,8 +58,7 @@ class HomeController extends Controller
     public function category(Category $category)
     {
         
-        $posts = Post::where('category_id', $category->id)->where('status', 2)->latest('id')->paginate(3); // Filtering by id the categories
-        //dd($posts);
+        $posts = $this->postServices->getPostsByCategory($category); 
         $data = [
             'pageTitle' => 'Web Serveces-' . $category->name,
             'posts' => $posts,
@@ -64,7 +71,7 @@ class HomeController extends Controller
     public function tag(Tag $tag)
     {
         
-        $posts = $tag->posts()->where('status', 2)->latest('id')->paginate(3);
+        $posts = $this->postServices->getPostsByTag($tag);
 
         $data = [
             'pageTitle' => 'Web Serveces-' . $tag->name,

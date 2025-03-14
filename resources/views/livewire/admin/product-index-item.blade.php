@@ -6,11 +6,17 @@
                     <span class="h4 align-middle">$ {{ $product->price }}</span>
                 </div>
                 <div class="btn-group">
-                    <button wire:click="edit" class="btn  btn-secondary p-1"><i class="fa fa-ms fa-fw fa-pen"></i></button>
-                    <button wire:click="delete" class="btn  btn-danger p-1"><i class="fa fa-lg fa-fw fa-trash"></i></button>
+                    @can('admin.products.edit')
+                        <button wire:click="edit" class="btn  btn-secondary p-1"><i class="fa fa-ms fa-fw fa-pen"></i></button>
+                    @endcan
+                    @can('admin.products.destroy')
+                        <button wire:click="delete" class="btn  btn-danger p-1"><i class="fa fa-lg fa-fw fa-trash"></i></button>
+                    @endcan
+                    @can('admin.products.edit')
                     <button wire:click="toggle_activation" class="btn btn-warning  p-1">
                         {{ $product->status == 1 ? 'Activar' : 'Desactivar' }}
                     </button>
+                    @endcan
                 </div>
             </div>
         </div>

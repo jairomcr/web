@@ -2,7 +2,8 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\User;
+
+use App\Services\UserService;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -16,6 +17,13 @@ class UsersIndex extends Component
     public $userId;
     protected $listeners = ['refresh' => '$refresh', 'deleted'];
 
+    protected $userService;
+
+    public function __construct()
+    {
+        $this->userService = new UserService();
+    }
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -23,22 +31,14 @@ class UsersIndex extends Component
 
     public function render()
     {
-        $users = User::where('name','LIKE','%'.$this->search . '%')
-        ->orWhere('email','LIKE','%'.$this->search . '%')
-        ->latest('id')
-        ->paginate(8);
-
+        $users = $this->userService->getPaginationUsers($this->search);
         return view('livewire.admin.users-index',compact('users'));
     }
 
     public function deleted($userId): void
     {
-        $user = User::find($userId)->first();
-        if ($user) {
-            $user->delete();
-            $this->dispatch('alert', 'Usuario eliminado correctamente.');
-        } else {
-            $this->dispatch('alert', 'Usuario no encontrado.');
-        }
+        $this->userService->deleteUser($userId);
+        $this->dispatch('alert', 'Usuario eliminado correctamente.');
+        
     }
 }

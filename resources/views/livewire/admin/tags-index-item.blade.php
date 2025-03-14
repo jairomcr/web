@@ -7,15 +7,20 @@
             </div>
             
             <div class="col-3 d-flex justify-content-end align-items-center" style="height: 39px;">
-                <button class="btn btn-secondary" x-show="!editing" @click="editing = true; $refs.tag.focus()">
-                    <span class="fas fa-ms fa-edit" ></span>
-                </button>
-                <button class="btn btn-xs btn-default text-secondary mx-1 shadow edit-button" x-show="editing" @click="editing = false; $wire.save(name)">
-                    <i class="fa fa-ms fa-fw fa-pen"></i>
-                </button>
-                <button class="btn  btn-default text-danger mx-1 shadow edit-button" wire:click="delete">
-                    <span class="fas fa-lg fa-fw fa-trash"></span>
-                </button>
+                @can('admin.tags.edit')
+                    <button class="btn btn-secondary" x-show="!editing" @click="editing = true; $refs.tag.focus()">
+                        <span class="fas fa-ms fa-edit"></span>
+                    </button>
+                    <button class="btn btn-xs btn-default text-secondary mx-1 shadow edit-button" x-show="editing"
+                        @click="editing = false; $wire.save(name)">
+                        <i class="fa fa-ms fa-fw fa-pen"></i>
+                    </button>
+                @endcan
+                @can('admin.tags.destroy')
+                    <button class="btn  btn-default text-danger mx-1 shadow edit-button" wire:click="delete">
+                        <span class="fas fa-lg fa-fw fa-trash"></span>
+                    </button>
+                @endcan 
             </div>
         </div>
     </div>

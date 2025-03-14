@@ -1,6 +1,6 @@
 <div class="container-fluid" x-data="{ creating: false }">
     <div class="row">
-        @can('admin.tags.index')
+        @can('admin.tags.create')
             <button class="btn btn-secondary col-auto mr-2 ml-2 mb-1" @click="creating = true">Crear</button>
         @endcan
         <input type="text" class="form-control  col-10" wire:model.live="searchTag"

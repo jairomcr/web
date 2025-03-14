@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Category;
+use App\Services\CategoryService;
 use Livewire\Component;
 
 class CategoriesEdit extends Component
@@ -11,6 +12,11 @@ class CategoriesEdit extends Component
     public $category;
     public $categoryName;
     public $categorySlug;
+    protected $categoryService;
+
+    public function __construct(){
+        $this->categoryService = app(CategoryService::class);
+    }
 
     protected function rules()
     {
@@ -36,18 +42,13 @@ class CategoriesEdit extends Component
         $this->categoryName = $category->name;
         $this->categorySlug = $category->slug;
     }
-
     public function generateSlug($title)
     {
-        $slug = strtolower($title);
-        $slug = preg_replace('/[^a-z0-9]+/', '-', $slug); // Reemplaza caracteres no alfanuméricos
-        $slug = preg_replace('/(^-|-$)/', '', $slug); // Elimina guiones al principio y al final
-        $this->categorySlug = $slug;
+        $this->categorySlug = $this->categoryService->generateSlug($title);
     }
-
     public function updatedCategoryName($value)
     {
-        $this->generateSlug($value);
+       $this->categoryService->generateSlug($value);
     }
 
     public function save()
@@ -55,11 +56,11 @@ class CategoriesEdit extends Component
         $this->validate();
 
         // Actualiza las propiedades de la categoría
-        $this->category->name = $this->categoryName;
-        $this->category->slug = $this->categorySlug;
-
-        // Guarda la categoría
-        $this->category->save();
+        $this->categoryService->updateCategory(
+            $this->category,
+            $this->categoryName,
+            $this->categorySlug,
+        );
 
         // Reset the fields
         $this->reset(['open']);

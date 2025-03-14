@@ -7,6 +7,7 @@ use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Services\PostService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -37,12 +38,19 @@ class PostsIndex extends Component
     public $postId = null; // Para almacenar el ID del post que se está editando
     public $post;
 
+    protected $postServicie;
+
     public $listeners = ['deleted'=>'deleted'];
+
+    public function __construct()
+    {
+        $this->postServicie = new PostService();
+    }
 
     public function mount()
     {
-        $this->categories = Category::pluck('name', 'id');
-        $this->tags = Tag::all(); //Obtener todos los tags
+        $this->categories = $this->postServicie->getCategories();
+        $this->tags = $this->postServicie->getTags();
     }
 
     public function updatingSearch()
@@ -50,12 +58,9 @@ class PostsIndex extends Component
         $this->resetPage();
     }
     // En tu componente Livewire
-    public function generateSlug($title)
+    public function generateSlug()
     {
-        $slug = strtolower($title);
-        $slug = preg_replace('/[^a-z0-9]+/', '-', $slug); // Reemplazar caracteres no alfanuméricos
-        $slug = preg_replace('/(^-|-$)/', '', $slug); // Eliminar guiones al inicio y al final
-        $this->slug = $slug;
+        $this->slug = $this->postServicie->generateSlug($this->name);
     }
 
     // Método para alternar entre mostrar el formulario y la lista de posts
@@ -67,17 +72,41 @@ class PostsIndex extends Component
 
     public function createPost()
     {
-        $this->handlePostOperation();
+        $data = [
+            'name' => $this->name,
+            'slug'=> $this->slug,
+            'status' => $this->status,
+            'extract' => $this->extract,
+            'body' => $this->body,
+            'category_id'=> $this->category_id,
+            'selectedTags'=> $this->selectedTags,
+        ];
+
+        $this->postServicie->createOrUpdatePost($data, $this->postId,$this->image);
         session()->flash('message', 'Artículo creado exitosamente.');
+        $this->redirectRoute('admin.posts.index');
+        $this->resetForm();
     }
 
     public function updatePost()
     {
-        $this->handlePostOperation();
+        $data = [
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'status' => $this->status,
+            'extract' => $this->extract,
+            'body' => $this->body,
+            'category_id' => $this->category_id,
+            'selectedTags' => $this->selectedTags,
+        ];
+
+        $this->postServicie->createOrUpdatePost($data, $this->postId, $this->image);
         session()->flash('message', 'Artículo actualizado exitosamente.');
+        $this->redirectRoute('admin.posts.index');
+        $this->resetForm();
     }
 
-    private function handlePostOperation()
+    /* private function handlePostOperation()
     {
         $postId = $this->postId ?? null;
         
@@ -132,12 +161,12 @@ class PostsIndex extends Component
 
         $this->redirectRoute('admin.posts.index');
         $this->resetForm();
-    }
+    } */
 
     // Método para cargar un post en el formulario de edición
     public function editPost($id)
     {
-        $post = Post::findOrFail($id);
+        $post = $this->postServicie->getPostForEdit($id);
 
         // Asignar los valores del post al formulario
         $this->postId = $post->id;
@@ -160,14 +189,9 @@ class PostsIndex extends Component
     // Método para eliminar un post
     public function deleted($postId)
     {
-        $post = Post::find($postId)->first();
-
-        if ($post) {
-            $post->delete();
-            $this->dispatch('alert', 'Artículo eliminado exitosamente.');
-        } else {
-            $this->dispatch('alert', 'Artículo no encontrado.');
-        }
+        $this->postServicie->deletePost($postId);
+        $this->dispatch('alert', 'Artículo eliminado exitosamente.');
+        
     }
 
     // Método para resetear el formulario
@@ -188,11 +212,7 @@ class PostsIndex extends Component
 
     public function render()
     {
-        $posts = Post::where('user_id', auth()->user()->id)
-            ->where('name', 'like', '%' . $this->search . '%')
-            ->latest('id')
-            ->paginate(6);
-
+        $posts = $this->postServicie->getPaginationPosts($this->search);
         return view('livewire.admin.posts-index', compact('posts'));
     }
 }

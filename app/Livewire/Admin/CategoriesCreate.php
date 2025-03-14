@@ -3,20 +3,22 @@
 namespace App\Livewire\Admin;
 
 use App\Http\Requests\CategoryRequest;
-use App\Models\Category;
+use App\Services\CategoryService;
 use Livewire\Component;
 
 class CategoriesCreate extends Component
 {
     public $open = false;
     public $name, $slug;
+    protected $categoryService;
 
-    public function generateSlug($title)
+    public function __construct()
     {
-        $slug = strtolower($title);
-        $slug = preg_replace('/[^a-z0-9]+/', '-', $slug); // Replace non-alphanumeric characters
-        $slug = preg_replace('/(^-|-$)/', '', $slug); // Remove beginning and end dashes
-        $this->slug = $slug;
+        $this->categoryService = app(CategoryService::class);
+    }
+    public function generateSlug()
+    {
+        $this->slug = $this->categoryService->generateSlug($this->name);
     }
 
     public function closeModal()
@@ -42,10 +44,7 @@ class CategoriesCreate extends Component
         $this->validate(CategoryRequest::rules(), $messages);
 
         //Save categories
-        Category::create([ 
-            "name"=> $this->name,
-            "slug"=> $this->slug,
-        ]);
+        $this->categoryService->createCategory($this->name, $this->slug);
 
         // Reset the fields
         $this->reset(['open','name','slug']);
