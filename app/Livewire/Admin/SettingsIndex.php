@@ -73,8 +73,22 @@ class SettingsIndex extends Component
         $this->validate([
             'newExecutive.name' => 'required|string|max:255',
             'newExecutive.position' => 'required|string|max:255',
-            'newExecutive.photo' => 'nullable|image|max:1024',
+            'newExecutive.photo' => ['nullable','image','max:100', function ($attribute, $value, $fail) {
+                if ($value) {
+                    list($width, $height) = getimagesize($value->getRealPath());
+                    if ($width !== 600 || $height !== 600) {
+                        $fail('La imagen debe tener dimensiones de 600x600 píxeles.');
+                    }
+                }
+            },],
+        ], [
+            'newExecutive.name.required' => 'El campo nombre es obligatorio.',
+            'newExecutive.name.string' => 'Debe contener solo letras.',
+            'newExecutive.position.required' => 'El campo nombre es obligatorio.',
+            'newExecutive.position.string' => 'Debe contener solo letras.',
+            'newExecutive.photo.image' => 'El campo imagen debe contener solo imagenes.',
         ]);
+        
 
         $photoPath = null;
         if ($this->newExecutive['photo']) {

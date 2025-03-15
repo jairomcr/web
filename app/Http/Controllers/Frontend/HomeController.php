@@ -9,17 +9,22 @@ use App\Models\Product;
 use App\Models\Tag;
 use App\Services\PostService;
 use App\Services\ProductService;
+use App\Services\SettingService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
    
     protected $postService;
+    protected $settingService;
+    protected $productService;
     
 
-    public function __construct(PostService $postService)
+    public function __construct(PostService $postService,SettingService $settingService, ProductService $productService)
     {
         $this->postService = $postService;
+        $this->settingService = $settingService;
+        $this->productService = $productService;
     }
 
     public function index()
@@ -46,19 +51,22 @@ class HomeController extends Controller
         return view('front-end.posts.tag', $data);
     }
 
-    public function product_list(ProductService $productService) {
-       
+    public function product_list() {
+
+        $settingData = $this->settingService->getAllSettings();
         return view('front-end.components.product-list', [
             'pageTitle' => 'Lista de Productos',
-            'products' => $productService->latest_active(6)
+            'products' => $this->productService->latest_active(6),
+            'settings' => $settingData,
         ]);
     }
 
     public function product_detail(Product $product) {
-
+        $settingData = $this->settingService->getAllSettings();
         return view('front-end.components.product-detail', [
             'product' => $product,
             'pageTitle' => 'Detalles del Producto',
+            'settings' => $settingData,
         ]);
     }
 }

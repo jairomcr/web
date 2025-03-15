@@ -11,6 +11,11 @@ use RuntimeException;
 
 class ProductService
 {
+    protected $settingService;
+    public function __construct()
+    {
+        $this->settingService = app(SettingService::class);
+    }
     public function store(Collection $data)
     {
         $product = Product::create([

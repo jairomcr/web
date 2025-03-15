@@ -47,7 +47,7 @@
     @include('front-end.layouts.topbar')
 
     <!-- ======= Header ======= -->
-    @include('front-end.layouts.header')
+    @include('front-end.posts.layouts.header')
     <!-- End Header -->
 
     <main id="main">

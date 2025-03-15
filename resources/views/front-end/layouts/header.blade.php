@@ -19,6 +19,8 @@
                         @endforeach
                     </ul>
                 </div>
+                <li><a class="nav-link scrollto" href="#team">Directivos</a></li>
+                <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->

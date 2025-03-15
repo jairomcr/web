@@ -82,7 +82,11 @@ class PostsIndex extends Component
             'selectedTags'=> $this->selectedTags,
         ];
 
-        $this->postServicie->createOrUpdatePost($data, $this->postId,$this->image);
+        if ($this->image) {
+            $data['image'] = $this->image;
+        }
+        
+        $this->postServicie->createOrUpdatePost($data, $this->postId, $this->image);
         session()->flash('message', 'Artículo creado exitosamente.');
         $this->redirectRoute('admin.posts.index');
         $this->resetForm();
@@ -99,6 +103,8 @@ class PostsIndex extends Component
             'category_id' => $this->category_id,
             'selectedTags' => $this->selectedTags,
         ];
+
+        
 
         $this->postServicie->createOrUpdatePost($data, $this->postId, $this->image);
         session()->flash('message', 'Artículo actualizado exitosamente.');

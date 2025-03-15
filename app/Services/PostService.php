@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class PostService
 {
@@ -35,33 +36,39 @@ class PostService
     }
     public function getShowData(Post $post): array
     {
+        $settingData = $this->settingService->getAllSettings();
         $similares = $this->getSimilarPosts($post);
 
         return [
             'pageTitle' => 'Web Services - Article',
             'title' => 'Artículos',
             'post' => $post,
+            'settings' => $settingData,
             'similares' => $similares,
         ];
     }
     public function getCategoryData(Category $category): array
     {
         $posts = $this->getPostsByCategory($category);
+        $settingData = $this->settingService->getAllSettings();
 
         return [
             'pageTitle' => 'Web Services - ' . $category->name,
             'posts' => $posts,
             'category' => $category,
+            'settings' => $settingData,
         ];
     }
     public function getTagData(Tag $tag): array
     {
         $posts = $this->getPostsByTag($tag);
+        $settingData = $this->settingService->getAllSettings();
 
         return [
             'pageTitle' => 'Web Services - ' . $tag->name,
             'posts' => $posts,
             'tag' => $tag,
+            'settings' => $settingData,
         ];
     }
     protected function getActivePosts(int $perPage)
@@ -120,11 +127,23 @@ class PostService
         return $slug;
     }
 
-    public function createOrUpdatePost($data, $postId = null, $image = null)
+    public function createOrUpdatePost($data, $postId = null,$image = null)
     {
+        
         $rules = PostRequest::getRules($data['status'], $postId);
+
+        $validator = Validator::make($data, $rules, (new PostRequest())->messages());
+
+        // Valida los datos
+        $validator->validate();
+
         $userId = auth()->id();
-        $imagePath = $image ? $image->store('posts', 'public') : null;
+        $imagePath = null;
+        
+        if ($image) {
+            $imagePath = $image->store('posts', 'public');
+        }
+  
 
         DB::transaction(function () use ($postId, $userId, $imagePath, $data) {
             if ($postId) {
