@@ -41,10 +41,10 @@ class ProductForm extends Component
         
         match ($this->mode) {
             'create' => $this->validate([
-                'img' => 'required|image|max:2028'
+                'img' => ['required','image','max:200']
             ]),
             'edit' => $this->validate([
-                'img' => 'nullable|image|max:2028'
+                'img' => ['nullable','image','max:200']
             ]),
             default => throw new InvalidArgumentException(
                 "Property mode can only have the following states 'create|update'"

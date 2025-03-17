@@ -13,7 +13,7 @@
                 aria-expanded="false"><span>{{auth()->user()->name}}</span> <i class="bi bi-chevron-down"></i>
             </a>
             <ul class="dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class=" dropdown-item text-dark bg-white" href="#">Perfil</a></li>
+                <li><a class=" dropdown-item text-dark bg-white" href="{{route('profile.show')}}">Perfil</a></li>
                 @can('admin.home')
                     <li><a class="dropdown-item text-dark bg-white" href="{{ route('admin.home') }}">Dashboard</a></li>
                 @endcan

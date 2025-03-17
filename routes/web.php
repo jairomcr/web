@@ -14,6 +14,7 @@ Route::get('category/{category:slug}', [HomeController::class, 'category'])->nam
 Route::get('tag/{tag}', [HomeController::class, 'tag'])->name('posts.tag');
 Route::get('products', [HomeController::class, 'product_list'])->name('products.show');
 Route::get('products/{product:slug}/detail', [HomeController::class, 'product_detail'])->name('products.detail');
+Route::post('contact_mail', [HomeController::class, 'contactMail'])->name('contact_mail');
 
 // Rutas de autenticación de AdminLTE
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password-request');

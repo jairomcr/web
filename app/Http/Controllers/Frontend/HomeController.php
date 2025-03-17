@@ -12,6 +12,9 @@ use App\Services\ProductService;
 use App\Services\SettingService;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactMail;
+
 class HomeController extends Controller
 {
    
@@ -68,5 +71,14 @@ class HomeController extends Controller
             'pageTitle' => 'Detalles del Producto',
             'settings' => $settingData,
         ]);
+    }
+    public function contactMail(Request $request)
+    {
+        $to = "secretaria@cervezagtm.co.cu";
+        $msg = $request->message;
+        $subject = $request->subject;
+
+        Mail::to($to)->send(new ContactMail($msg, $subject));
+        return "send Mail";
     }
 }

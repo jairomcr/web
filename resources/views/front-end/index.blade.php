@@ -70,7 +70,9 @@
         <!-- End Team Section -->
 
         <!-- ======= Contact Section ======= -->
-        @include('front-end.components.contact')
+        @auth
+            @include('front-end.components.contact')
+        @endauth
         <!-- End Contact Section -->
 
     </main><!-- End #main -->
