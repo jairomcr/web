@@ -24,11 +24,12 @@ class PostService
     {
         $posts = $this->getActivePosts(4);
         $settingData = $this->settingService->getAllSettings();
-
+        
         return [
             'pageTitle' => 'Web Services',
             'posts' => $posts,
-            'settings' => $settingData,
+            'settings' => $settingData['settingData'],
+            'executives'=>$settingData['executives'],
             'latest_products' => $this->productService->latest_active_all()->take(6)->get(),
             'last_product' => $this->productService->latest_active_all()->first(),
             'last_post' => $this->getLatestPost(),
@@ -43,7 +44,7 @@ class PostService
             'pageTitle' => 'Web Services - Article',
             'title' => 'Artículos',
             'post' => $post,
-            'settings' => $settingData,
+            'settings' => $settingData['settingData'],
             'similares' => $similares,
         ];
     }
@@ -56,7 +57,7 @@ class PostService
             'pageTitle' => 'Web Services - ' . $category->name,
             'posts' => $posts,
             'category' => $category,
-            'settings' => $settingData,
+            'settings' => $settingData['settingData'],
         ];
     }
     public function getTagData(Tag $tag): array
@@ -68,7 +69,7 @@ class PostService
             'pageTitle' => 'Web Services - ' . $tag->name,
             'posts' => $posts,
             'tag' => $tag,
-            'settings' => $settingData,
+            'settings' => $settingData['settingData'],
         ];
     }
     protected function getActivePosts(int $perPage)

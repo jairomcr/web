@@ -60,7 +60,7 @@ class HomeController extends Controller
         return view('front-end.components.product-list', [
             'pageTitle' => 'Lista de Productos',
             'products' => $this->productService->latest_active(6),
-            'settings' => $settingData,
+            'settings' => $settingData['settingData'],
         ]);
     }
 
@@ -69,7 +69,7 @@ class HomeController extends Controller
         return view('front-end.components.product-detail', [
             'product' => $product,
             'pageTitle' => 'Detalles del Producto',
-            'settings' => $settingData,
+            'settings' => $settingData['settingData'],
         ]);
     }
     public function contactMail(Request $request)

@@ -47,8 +47,9 @@ class SettingsIndex extends Component
     }
     private function loadSettings()
     {
-        $settings = $this->settingService->getAllSettings();
-        if ($settings) {
+        $setting = $this->settingService->getAllSettings();
+        if ($setting['settingData']) {
+            $settings = $setting['settingData'];
             $this->settingId = $settings->id;
             $this->name = $settings->name;
             $this->title = $settings->title;

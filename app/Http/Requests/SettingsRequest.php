@@ -30,15 +30,15 @@ class SettingsRequest extends FormRequest
             'logo' => [
                 'nullable',
                 'image',
-                'max:5',
-                function ($attribute, $value, $fail) {
+                'max:20',
+                 function ($attribute, $value, $fail) {
                     if ($value) {
                         list($width, $height) = getimagesize($value->getRealPath());
                         if ($width !== 166 || $height !== 50) {
                             $fail('La imagen debe tener dimensiones de 165x50 píxeles.');
                         }
                     }
-                },
+                }, 
             ], 
             'extract' => 'required|string',
             'phone' => 'required|digits_between:1,20',

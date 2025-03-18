@@ -71,4 +71,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+    public function adminlte_profile_url()
+    {
+        return 'user/profile';
+    }
 }

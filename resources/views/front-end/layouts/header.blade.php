@@ -4,13 +4,17 @@
         <div class="logo">
             {{-- <h1><a href="/">Cerveza gtmo</a></h1> --}}
             <!-- Uncomment below if you prefer to use an image logo -->
-            <a href="/"><img src="{{Storage::url($settings->logo)}}" alt="" class="img-fluid"></a>
+            @if (isset($settings->logo))
+                <a href="/"><img src="{{Storage::url($settings->logo)}}" alt="" class="img-fluid"></a>
+            @else
+                <h1><a href="/">Cerveza gtmo</a></h1>
+            @endif
         </div>
 
         <nav id="navbar" class="navbar">
             <ul>
                 <li><a class="nav-link scrolltos" href="/">Home</a></li>
-                <li><a class="nav-link scrollto" href="#about">About</a></li>
+                <li><a class="nav-link scrollto" href="#about">Acerca de</a></li>
                 <li><a class="nav-link scrollto" href="{{ route('products.show') }}">Productos</a></li>
                 <div class="dropdown"><a href="#"><span>Articulos</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
@@ -20,7 +24,9 @@
                     </ul>
                 </div>
                 <li><a class="nav-link scrollto" href="#team">Directivos</a></li>
-                <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                @auth
+                    <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
+                @endauth   
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
